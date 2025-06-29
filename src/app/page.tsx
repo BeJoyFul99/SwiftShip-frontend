@@ -1,103 +1,74 @@
-import Image from "next/image";
-
+import Advantages from "@/components/landing/Advantages";
+import Features from "@/components/landing/Features";
+import ContainerAnimation from "@/components/landing/ContainerAnimation";
+import Howitwokrs from "@/components/landing/Howitwokrs";
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="w-full h-full min-h-screen ">
+      <section id="landing" className="w-full h-full p-3 pt-3 relative">
+        <div className="content p-5 landing-content-bg relative rounded-lg shadow-lg w-full h-full flex items-center justify-center  md:min-h-[860px] flex-col gap-6 bg-cover bg-center bg-no-repeat ">
+          <h1
+            className="text-[2.5rem] md:text-[3.5rem] mt-36 md:mt-45 font-bold mb-4 text-[var(--snow-white)] text-center tracking-wide"
+            style={{ fontFamily: "var(--font-shippori-antique-b1)" }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Welcome to{" "}
+            <span
+              className="glass-text from-white to-orange-300 "
+              style={{
+                fontFamily: "var(--font-shippori-antique-b1)",
+              }}
+            >
+              SwiftShip
+            </span>
+          </h1>
+          <p
+            className="text-sm md:text-lg mt-[1.25rem] md:mt-[5rem] text-center text-white mb-6 w-10/12 md:w-6/12 leading-relaxed"
+            style={{ fontFamily: "var(--font-shippori-antique)" }}
           >
-            Read our docs
-          </a>
+            Revolutionizing global freight logistics. <br />
+            Fast, reliable, and tailored shipping solutions <br />
+            designed to meet your unique needs.
+          </p>
+          {/* Call-to-Action */}
+          <button
+            className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-700 text-white rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300"
+            style={{ fontFamily: "var(--font-shippori-antique)" }}
+          >
+            Get Started
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+      {/* reasons why SwiftShip is the best choice for your shipping needs. */}
+      <section id="advantages" className="w-full">
+        <div className="container mx-auto px-4 py-20 flex gap-8 flex-col lg:flex-row">
+          <h2 className="section-header mx-auto md:mx-0 min-w-fit h-max text-(var(--foreground)) ">
+            Why Choose{" "}
+            <span className=" glass-text from-[var(--foreground)]/40 to-orange-300">
+              SwiftShip
+            </span>{" "}
+            ?
+          </h2>
+          <Advantages />
+        </div>
+      </section>
+      <section
+        id="features"
+        className="relative w-full before:left-[50%] before:-translate-x-[50%] before:absolute before:top-0 before:w-11/12 before:h-[0.86px] before:bg-[var(--foreground)]/20 before:rounded-full  "
+      >
+        <Features />
+      </section>
+      <section
+        id="connecting-the-world"
+        className="w-full h-[600px] my-7 p-2 md:p-7 relative md:h-[800px]"
+      >
+        <ContainerAnimation />
+      </section>
+      <section
+        id="how-it-works"
+        className="w-full h-full my-5 py-17 px-2 md:py-20 md:px-10 bg-foreground/3"
+      >
+        <Howitwokrs />
+      </section>
+    </main>
   );
 }
