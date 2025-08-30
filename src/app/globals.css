@@ -100,13 +100,14 @@ body {
     ),
     url("https://media.gettyimages.com/id/1349093190/photo/container-ship-beneath-bridge.jpg?s=2048x2048&w=gi&k=20&c=ph_togd49cJufWnHHUz-m-fRodncP6v62qqlQ6P6FNQ=");
 }
-.nav-items > li {
+.nav-items > li,
+.nav-item {
   border-radius: 10rem;
   padding: 0.5rem 1rem;
   text-decoration: none;
 }
 
-.nav-items > li:hover {
+.nav-items > li:hover ,.nav-item:hover {
   background-color: var(--color-foreground);
   color: var(--color-background);
 }

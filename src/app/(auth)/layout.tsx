@@ -1,7 +1,5 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import { Shippori_Antique, Shippori_Antique_B1 } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
 
 const shippori_antique = Shippori_Antique({
   variable: "--font-shippori-antique",
@@ -20,19 +18,17 @@ export const metadata: Metadata = {
   description: "A platform for your shipping needs",
 };
 
-export default function RootLayout({
+export default function ProtectedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${shippori_antique.variable} ${shippori_antique_b1.variable} antialiased`}
-      >
-        <Navbar />
-        {children}
-      </body>
+    <html
+      lang="en"
+      className={`${shippori_antique.variable} ${shippori_antique_b1.variable} antialiased`}
+    >
+      <body>{children}</body>
     </html>
   );
 }

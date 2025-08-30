@@ -1,14 +1,8 @@
 "use client";
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import {
-  FaHome,
-  FaServicestack,
-  FaShippingFast,
-  FaDollarSign,
-  FaInfoCircle,
-} from "react-icons/fa"; // Import icons
-
+import NavBarItems from "./NarBavItems";
+import Link from "next/link";
+import { BsSignIntersectionYFill } from "react-icons/bs";
 function Navbar() {
   const [isLandingVisible, setIsLandingVisible] = useState(true);
 
@@ -46,29 +40,15 @@ function Navbar() {
           <Link href="/">SwiftShip</Link>
         </div>
         {/* Navigation Links */}
-        <ul className="nav-items lg:space-x-6 hidden md:flex">
-          <li className="flex items-center space-x-2">
-            <FaHome />
-            <Link href="/">Home</Link>
-          </li>
-          <li className="flex items-center space-x-2">
-            <FaServicestack />
-            <Link href="/services">Services</Link>
-          </li>
-          <li className="flex items-center space-x-2">
-            <FaShippingFast />
-            <Link href="/tracking">Tracking</Link>
-          </li>
-          <li className="flex items-center space-x-2">
-            <FaDollarSign />
-            <Link href="/pricing">Pricing</Link>
-          </li>
-          <li className="flex items-center space-x-2">
-            <FaInfoCircle />
-            <Link href="/about">About Us</Link>
-          </li>
-        </ul>
-      </div>
+        <div className="*:hidden *:md:flex">
+          <NavBarItems />
+        </div>
+        {/* login */}
+        <Link href="/login" className="nav-item flex items-center space-x-2 gap-2">
+          <BsSignIntersectionYFill />
+          Login
+        </Link>
+      </div>{" "}
     </nav>
   );
 }

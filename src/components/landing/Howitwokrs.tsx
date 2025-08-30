@@ -46,7 +46,7 @@ function Howitwokrs() {
     {
       title: "Receive Your Products",
       description:
-        " Track your shipment in real-time and receive your products at your doorstep, hassle-free.",
+        "Track your shipment in real-time and receive your products at your doorstep, hassle-free.",
       bgImgUrl:
         "https://media.gettyimages.com/id/1427686960/photo/woman-walking-home-holding-a-package-and-using-an-app-on-her-cell-phone.jpg?s=612x612&w=0&k=20&c=dG_BgqdfSPLLjw_nyf0EYN61nIwPzTCmBnHcqn1Mv3s=",
     },
@@ -55,23 +55,64 @@ function Howitwokrs() {
   useGSAP(
     () => {
       const ctx = gsap.context(() => {
+        const yOffsetPerCard = -15; // Vertical offset between cards in pixels or percentage
         const container = containerRef.current;
         if (!container) return;
+        const items = container.querySelectorAll(".stack-item");
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: container,
-            start: "top top",
-            end: () => "+=100%",
+            start: "top+=320 center",
+            end: `bottom+=${items.length * 350} top`,
             scrub: 1,
             pin: true,
-            markers: true,
           },
         });
-        const items = container.querySelectorAll(".stack-item");
-        items.forEach((item, _) => {
-          tl.fromTo(item, {
+        items.forEach((item, index: number) => {
+          if (index >= 2) {
+            tl.to(items[index - 2], {
+              opacity: 0,
+              scale: 0.65,
+            });
+          }
+          if (index != 0) {
+            const itemDesc =
+              items[index - 1].getElementsByClassName("description");
+            tl.to(itemDesc, {
+              opacity: 0,
+            });
+          }
 
-          });
+          if (index != 0) {
+            tl.to(
+              items[index - 1],
+              {
+                opacity: 0.5,
+                scale: 0.85,
+                yPercent: yOffsetPerCard,
+              },
+              "-=1"
+            );
+          }
+
+          tl.fromTo(
+            item,
+            {
+              yPercent: index == 0 ? 0 : 80 * 10,
+              opacity: index == 0 ? 1 : 0,
+            },
+            {
+              yPercent: 0,
+              opacity: 1,
+            },
+            "-=1"
+          );
+
+          // if (index != 0 && index != items.length - 1) {
+          //   tl.to(items[index - 1], {
+          //     opacity: 0,
+          //   });
+          // }
         }, 0);
       });
 
@@ -80,27 +121,27 @@ function Howitwokrs() {
     { scope: containerRef }
   );
   return (
-    <div className="flex flex-col relative items-center justify-center w-full h-full">
-      <h1 className="text-xl md:text-4xl/11 text-foreground font-semibold text-center mb-3 md:w-10/12 max-w-[858px]">
+    <div
+      className="flex flex-col relative items-center justify-center w-full h-full "
+      ref={containerRef}
+    >
+      <h1 className="text-xl md:text-4xl/11 top-0 text-foreground font-semibold text-center mb-3 md:w-10/12 max-w-[858px]">
         Shop globally with our streamlined process. Enjoy{" "}
         <span className="text-[var(--foreground-half)]">
           hassle-free international shopping
         </span>
         .
       </h1>
-      <p className="text-sm md:text-lg text-foreground text-center md:w-7/12">
+      <p className="text-[11px] md:text-lg top-0 text-foreground text-center md:w-7/12">
         SwiftShip ensures secure payments, reliable shipping, and real-time
         tracking for a seamless global shopping experience.
       </p>
 
-      <div
-        className="stack-group mt-16 mb-5 w-full h-[45vh] relative flex flex-col justify-center items-center"
-        ref={containerRef}
-      >
+      <div className="stack-group mt-16 mb-5 w-full h-[48vh]  relative flex flex-col justify-center items-center">
         {steps.map((item, index) => (
           <div
             key={index}
-            className="stack-item scale-120 opacity-0 translate-y-64 rounded-lg p-5 min-w-[20rem] min-h-[16rem] w-[60vw] h-[50vw] -top-16  max-w-[30rem] max-h-[23rem] shadow-xl absolute"
+            className="stack-item rounded-lg p-5 min-w-[20rem] min-h-[16rem] w-[60vw] h-[50vw] top-0  max-w-[30rem] max-h-[23rem] shadow-xl absolute"
             style={{
               backgroundImage: `url(${item.bgImgUrl})`,
               backgroundSize: "cover",
@@ -116,6 +157,9 @@ function Howitwokrs() {
                 {item.title}
               </p>
             </div>
+            <span className="description absolute left-2 bottom-0 translate-y-[120%] text-base md:text-lg w-full  font-light text-[var(--foreground)]/80">
+              {item.description}
+            </span>
           </div>
         ))}
       </div>

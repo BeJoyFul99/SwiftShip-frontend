@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import containerSvg from "./../../../public/container.svg";
 import Image from "next/image";
 
@@ -11,10 +11,13 @@ if (typeof window !== "undefined") {
 }
 function ContainerAnimation() {
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const beforeContainerRef = useRef<HTMLDivElement>(null);
+  const containerSvgRef = useRef<HTMLImageElement>(null);
   useGSAP(
     () => {
-      if (containerRef.current) {
+      if (containerRef.current && containerSvgRef) {
+        console.log(containerSvgRef.current?.height);
+
         const st = ScrollTrigger.create({
           trigger: containerRef.current,
           start: "top 55%",
@@ -37,7 +40,12 @@ function ContainerAnimation() {
             });
             gsap.fromTo(
               ".container-svg",
-              { display: "block", duration: 1, left: "110%" },
+              {
+                display: "block",
+                duration: 1,
+                left: "110%",
+                y: "-35%",
+              },
               {
                 opacity: 1,
                 duration: 3.45,
@@ -67,12 +75,29 @@ function ContainerAnimation() {
     },
     { scope: containerRef }
   );
+
+  useEffect(() => {
+    fetch("http://localhost:8080/")
+      .then((res) => {
+        if (res.ok) {
+          console.log("Server is running");
+        } else {
+          console.error("Server is not reachable");
+        }
+      })
+      .catch((err) => {
+        console.error("Error connecting to server:", err);
+      });
+  });
   return (
     <div
       className="w-full h-full flex items-center justify-center relative overflow-hidden"
       ref={containerRef}
     >
-      <h1 className="before-container z-10 absolute min-w-max  text-2xl md:text-4xl/12 font-bold text-center mb-8 opacity-0">
+      <h1
+        className="before-container z-10 absolute min-w-max  text-2xl md:text-4xl/12 font-bold text-center mb-8 opacity-0"
+        ref={beforeContainerRef}
+      >
         Connecnting the World <br />{" "}
         <span className=" text-orange-500">Through Reliable,Efficient</span>{" "}
         <br /> Shipping Solutions.
@@ -80,10 +105,11 @@ function ContainerAnimation() {
       <Image
         src={containerSvg.src}
         alt="Container Animation"
-        className="container-svg hidden z-20 h-auto absolute top-[calc(100%-clamp(510px,60vw,690px))] -translate-y-[50%] w-[90vw] min-w-[500px] max-w-[840px]"
+        className="container-svg hidden z-20 h-auto absolute w-[90vw] min-w-[500px] max-w-[840px]"
         width={680}
         height={680}
         objectFit="contain"
+        ref={containerSvgRef}
       />
       <div className="after-container absolute opacity-0">
         <div className="icons"></div>
