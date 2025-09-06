@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { Shippori_Antique, Shippori_Antique_B1 } from "next/font/google";
-
+import "../globals.css";
 const shippori_antique = Shippori_Antique({
   variable: "--font-shippori-antique",
   subsets: ["latin"],
@@ -15,7 +15,7 @@ const shippori_antique_b1 = Shippori_Antique_B1({
 
 export const metadata: Metadata = {
   title: "SwiftShip",
-  description: "A platform for your shipping needs",
+  description: "A platform for your shipping needs around the gloabl",
 };
 
 export default function ProtectedLayout({

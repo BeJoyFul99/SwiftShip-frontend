@@ -16,7 +16,7 @@ const shippori_antique_b1 = Shippori_Antique_B1({
 });
 
 export const metadata: Metadata = {
-  title: "SwiftShip",
+  title: process.env["APP_NAME"],
   description: "A platform for your shipping needs",
 };
 
@@ -32,7 +32,6 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
-        
       </body>
     </html>
   );

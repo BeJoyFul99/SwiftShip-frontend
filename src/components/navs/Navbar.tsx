@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import NavBarItems from "./NarBavItems";
 import Link from "next/link";
 import { BsSignIntersectionYFill } from "react-icons/bs";
+import Logo from "./Logo";
+
 function Navbar() {
   const [isLandingVisible, setIsLandingVisible] = useState(true);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -36,15 +37,16 @@ function Navbar() {
     >
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <div className="text-2xl font-bold">
-          <Link href="/">SwiftShip</Link>
-        </div>
+        <Logo />
         {/* Navigation Links */}
         <div className="*:hidden *:md:flex">
           <NavBarItems />
         </div>
         {/* login */}
-        <Link href="/login" className="nav-item flex items-center space-x-2 gap-2">
+        <Link
+          href="/login"
+          className="nav-item flex items-center space-x-2 gap-2"
+        >
           <BsSignIntersectionYFill />
           Login
         </Link>

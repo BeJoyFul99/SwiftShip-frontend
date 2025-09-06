@@ -82,9 +82,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #1e1f22;
     --foreground: #ededed;
     --foreground-half: rgba(255, 255, 255, 0.5);
+    --accent: oklch(0.205 0 0);
   }
 }
 
@@ -107,7 +108,12 @@ body {
   text-decoration: none;
 }
 
-.nav-items > li:hover ,.nav-item:hover {
+.blur-bg {
+  @apply bg-white/20 backdrop-blur-2xl;
+}
+
+.nav-items > li:hover,
+.nav-item:hover {
   background-color: var(--color-foreground);
   color: var(--color-background);
 }
@@ -160,4 +166,10 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.login-hero {
+  background-image: url("https://media.gettyimages.com/id/2222111742/photo/aerial-top-view-freight-train-winding-through-a-green-forest.jpg?s=2048x2048&w=gi&k=20&c=ohfPANXU5A6KX_Tj81YcJGi_tzzbPVLHpgK843DtTRE=");
+  background-size: cover;
+  background-position: center;
 }

@@ -20,7 +20,7 @@ function Howitwokrs() {
       description:
         "Ship your items to our local warehouse, and we'll handle the rest.",
       bgImgUrl:
-        "https://media.gettyimages.com/id/1397394728/photo/an-unrecognizable-businesswoman-preparing-a-package-for-shipping.jpg?s=612x612&w=0&k=20&c=1d-51n3LZ1IGi1O4vgJQrOG1LOJzQqNtKuyqL8041fc=",
+        "https://media.gettyimages.com/id/2166223645/photo/person-receiving-delivery-boxes-in-a-home-setting.jpg?s=612x612&w=0&k=20&c=wtd8JC0xbf3vwrSd2yEKOp6OzY11Snbj-VJT5qq9w_U=",
     },
     {
       title: "Claim Your Products",
@@ -30,7 +30,7 @@ function Howitwokrs() {
         "https://media.gettyimages.com/id/2203373360/photo/female-customer-contacting-the-online-retailer-while-filling-out-a-return-form.jpg?s=612x612&w=0&k=20&c=5fN2tvnly2SRSgT5jua6KVezvYvZuB3J-bYu38lJZ5g=",
     },
     {
-      title: "Secure Payment",
+      title: "Secured Payment",
       description:
         "Choose your shipping method and process payments securely through our platform for safe transactions.",
       bgImgUrl:
@@ -150,10 +150,10 @@ function Howitwokrs() {
             }}
           >
             <div className="stack-item-content h-full flex flex-col justify-between">
-              <h2 className="text-3xl md:text-4xl font-semibold text-background mb-2">
+              <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-2">
                 0{index + 1}
               </h2>
-              <p className="text-base md:text-2xl font-bold text-background">
+              <p className="text-base md:text-2xl font-bold  w-fit px-3 py-1 bg-white/20  backdrop-blur-2xl rounded-2xl ">
                 {item.title}
               </p>
             </div>

@@ -7,11 +7,11 @@ import { FaArrowRight } from "react-icons/fa";
 
 export default function Home() {
   return (
-    <main className="w-full h-full min-h-screen ">
+    <main className="w-full h-full min-h-screen">
       <section id="landing" className="w-full h-full p-3 pt-3 relative">
-        <div className="content p-5 landing-content-bg relative rounded-lg shadow-lg w-full h-full flex items-center justify-center  md:min-h-[860px] flex-col gap-6 bg-cover bg-center bg-no-repeat ">
+        <div className="content h-[640px] p-5 landing-content-bg relative rounded-lg shadow-lg w-full md:h-full flex items-center justify-center md:min-h-[860px] flex-col gap-6 bg-cover bg-center bg-no-repeat ">
           <h1
-            className="text-[2.5rem] md:text-[3.5rem] mt-36 md:mt-45 font-bold mb-4 text-[var(--snow-white)] text-center tracking-wide"
+            className="blur-bg px-5 py-2 rounded-4xl text-[1.5rem] md:text-[3.5rem] mt-36 md:mt-45 font-bold mb-4 text-[var(--snow-white)] text-center tracking-wide"
             style={{ fontFamily: "var(--font-shippori-antique-b1)" }}
           >
             Welcome to{" "}
@@ -115,27 +115,27 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer className="w-full h-full bg-foreground p-20">
-        <div className="flex justify-between items-center">
-          <div className="location flex gap-3 items-center w-max px-7 py-4 rounded-full bg-background/20">
+      <footer className="w-full h-full bg-background md:p-20 p-10">
+        <div className="mt-10 flex flex-wrap gap-5 justify-between items-end border-b border-background/20 pb-10 md:pb-20">
+          <h1 className="text-xl md:text-4xl lg:text-6xl text-foreground">
+            Ready to Ship with <br />
+            Confidence?
+          </h1>{" "}
+          <div className="location w-full md:w-max flex gap-3 items-center px-7 py-4 rounded-full bg-foreground/20">
             <FaLocationDot className="text-2xl text-background" />
-            <p className="text-xl text-background/50 font-light">
+            <p className="text-sm md:text-xl text-foreground/50 font-light">
               Search Location
             </p>
-            <span className="text-xl text-background">Canada</span>
+            <span className="text-sm md:text-xl text-foreground">Canada</span>
           </div>
-          <button className="group text-xl px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-700 text-white rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 flex items-center justify-center gap-2">
+        </div>
+        <div className="flex justify-between  items-center">
+          <button className="group w-full md:w-max text-xl px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-700 text-white rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 flex items-center justify-center gap-2">
             Request A Quote{" "}
             <FaArrowRight className=" transition group-hover:translate-x-3.5" />
           </button>
         </div>
-        <div className="mt-10 flex justify-between items-end border-b border-background/20 pb-20">
-          <h1 className="text-6xl text-background">
-            Ready to Ship with <br />
-            Confidence?
-          </h1>
-      
-        </div>
+
         {/* company info */}
         <div className="text-background p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -162,20 +162,20 @@ export default function Home() {
             {/* <!-- Email & Phone --> */}
             <div>
               <h3 className="text-lg font-semibold mb-2">Email</h3>
-              <p className="text-gray-400">info@swiftcontainers.com</p>
+              <p className="text-gray-400">{process.env["INFO_EMAIL"]}</p>
               <h3 className="text-lg font-semibold mb-2 mt-4">Phone</h3>
-              <p className="text-gray-400">+49 22 520 899</p>
+              <p className="text-gray-400">{process.env["INFO_PHONE"]}</p>
             </div>
           </div>
         </div>
-        <div className="mt-10 text-center text-background/50">
+        <div className="mt-10 text-center text-foreground/50">
           <p className="text-lg">
             SwiftShip is a leading global freight logistics provider, offering
             fast, reliable, and tailored shipping solutions to meet your unique
             needs.
           </p>
         </div>
-        <div className="mt-5 text-center text-background/50">
+        <div className="mt-5 text-center text-foreground/50">
           <p>
             &copy; {new Date().getFullYear()} SwiftShip. All rights reserved.
           </p>

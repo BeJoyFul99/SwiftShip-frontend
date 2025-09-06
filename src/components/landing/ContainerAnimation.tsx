@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, {  useRef } from "react";
 import containerSvg from "./../../../public/container.svg";
 import Image from "next/image";
 
@@ -76,19 +76,6 @@ function ContainerAnimation() {
     { scope: containerRef }
   );
 
-  useEffect(() => {
-    fetch("http://localhost:8080/")
-      .then((res) => {
-        if (res.ok) {
-          console.log("Server is running");
-        } else {
-          console.error("Server is not reachable");
-        }
-      })
-      .catch((err) => {
-        console.error("Error connecting to server:", err);
-      });
-  });
   return (
     <div
       className="w-full h-full flex items-center justify-center relative overflow-hidden"
