@@ -38,6 +38,7 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --border: oklch(0.92 0 0);
 }
 
 @theme inline {
@@ -86,6 +87,8 @@
     --foreground: #ededed;
     --foreground-half: rgba(255, 255, 255, 0.5);
     --accent: oklch(0.205 0 0);
+    --border: oklch(0.3 0 0);
+    --destructive: oklch(0.58 0.22 25.59);
   }
 }
 
@@ -109,7 +112,7 @@ body {
 }
 
 .blur-bg {
-  @apply bg-white/20 backdrop-blur-2xl;
+  @apply bg-white/5 backdrop-blur-2xl;
 }
 
 .nav-items > li:hover,
