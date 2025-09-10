@@ -12,11 +12,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Form from "next/form";
 import { loginSubmit } from "@/app/actions/auth-actions";
-import { useActionState } from "react";
-import { LoginActionResponse } from "@/types/loginForm";
+import { useActionState, useEffect } from "react";
+import { LoginActionResponse } from "@/types/authForm";
 import { Spinner } from "./ui/shadcn-io/spinner";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { AlertCircleIcon } from "lucide-react";
+import { AlertCircleIcon, CircleCheck } from "lucide-react";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
 
 const initialState: LoginActionResponse = {
   success: false,
@@ -28,15 +31,35 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const [state, action, isPending] = useActionState(loginSubmit, initialState);
+  const { user, setUser } = useAuth();
   if (state?.debugMsg) {
-    console.log("Debug Message:", state.debugMsg);
+    console.log("Debug Message:", state);
   }
+  useEffect(() => {
+    if (state?.success && state?.redirectPath) {
+      console.log(state);
+
+      setUser(state?.data?.user || null);
+      // You can add a toast notification here if desired
+
+      setTimeout(() => {
+        toast.info(`Welcome back ${user?.username}!`, {
+          description: "Redirecting to dashboard...",
+          duration: 4000,
+        });
+      }, 1000);
+      redirect(state?.redirectPath);
+    }
+  }, [state]);
   return (
     <div
-      className={cn("flex flex-col gap-6 h-full w-full p-10 ", className)}
+      className={cn(
+        "flex flex-col justify-center gap-6 h-full w-full md:p-10 ",
+        className
+      )}
       {...props}
     >
-      <Card className="bg-transparent border-0 h-full shadow-none  ">
+      <Card className="bg-transparent border-0  shadow-none  ">
         <CardHeader className="text-center mt-auto ">
           <CardTitle className="text-3xl md:text-5xl text-foreground">
             Welcome back
@@ -126,9 +149,7 @@ export function LoginForm({
                     aria-invalid={
                       state?.success === false &&
                       state?.errors &&
-                      "password" in state?.errors
-                        ? true
-                        : false
+                      "Invalid password" == state?.message
                     }
                   />
                 </div>
@@ -154,13 +175,15 @@ export function LoginForm({
                   variant={"secondary"}
                   size={"lg"}
                   className="w-full "
-                  disabled={isPending}
+                  disabled={isPending || state?.success}
                   aria-label="Login to your account"
                 >
                   {isPending ? (
                     <span className="flex items-center gap-2">
                       Logging in... <Spinner></Spinner>
                     </span>
+                  ) : state.success ? (
+                    <CircleCheck />
                   ) : (
                     "Continue"
                   )}
@@ -168,7 +191,7 @@ export function LoginForm({
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
+                <a href="/signup" className="underline underline-offset-4">
                   Sign up
                 </a>
               </div>

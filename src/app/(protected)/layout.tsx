@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Shippori_Antique, Shippori_Antique_B1 } from "next/font/google";
 import "../globals.css";
+import { AuthProvider } from "../context/AuthContext";
 
 const shippori_antique = Shippori_Antique({
   variable: "--font-shippori-antique",
@@ -29,7 +30,9 @@ export default function ProtectedLayout({
       lang="en"
       className={`${shippori_antique.variable} ${shippori_antique_b1.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
