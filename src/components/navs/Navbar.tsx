@@ -4,9 +4,13 @@ import NavBarItems from "./NarBavItems";
 import Link from "next/link";
 import { BsSignIntersectionYFill } from "react-icons/bs";
 import Logo from "./Logo";
+import { useAuth } from "@/app/context/AuthContext";
+import { PanelLeftDashed } from "lucide-react";
+import { Spinner } from "../ui/shadcn-io/spinner";
 
 function Navbar() {
   const [isLandingVisible, setIsLandingVisible] = useState(true);
+  const { user, isLoading } = useAuth();
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -43,13 +47,27 @@ function Navbar() {
           <NavBarItems />
         </div>
         {/* login */}
-        <Link
-          href="/login"
-          className="nav-item flex items-center space-x-2 gap-2"
-        >
-          <BsSignIntersectionYFill />
-          Login
-        </Link>
+        {isLoading ? (
+          <div className="nav-item flex items-center space-x-2 gap-2">
+            <Spinner></Spinner>
+          </div>
+        ) : !user ? (
+          <Link
+            href="/login"
+            className="nav-item flex items-center space-x-2 gap-2"
+          >
+            <BsSignIntersectionYFill />
+            Login
+          </Link>
+        ) : (
+          <Link
+            href="/dashboard"
+            className="nav-item flex items-center space-x-2 gap-2"
+          >
+            <PanelLeftDashed />
+            Dashboard
+          </Link>
+        )}
       </div>{" "}
     </nav>
   );

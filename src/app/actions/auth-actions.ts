@@ -168,6 +168,6 @@ export async function signupSubmit(
 }
 export async function logoutSubmit() {
   (await cookies()).delete("jwt_token");
-
+  
   redirect("/login");
 }

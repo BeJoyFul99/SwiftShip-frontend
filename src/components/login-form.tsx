@@ -31,7 +31,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const [state, action, isPending] = useActionState(loginSubmit, initialState);
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
   if (state?.debugMsg) {
     console.log("Debug Message:", state);
   }
@@ -40,14 +40,17 @@ export function LoginForm({
       console.log(state);
 
       setUser(state?.data?.user || null);
-      // You can add a toast notification here if desired
+      const storedUser = localStorage.getItem("user");
+      console.log(storedUser);
 
-      setTimeout(() => {
-        toast.info(`Welcome back ${user?.username}!`, {
-          description: "Redirecting to dashboard...",
-          duration: 4000,
-        });
-      }, 1000);
+      // You can add a toast notification here if desired
+      toast.info(`Welcome back ${state?.data?.user.username}!`, {
+        description: "Redirecting to dashboard...",
+        duration: 4000,
+      });
+
+      setTimeout(() => {}, 1000);
+
       redirect(state?.redirectPath);
     }
   }, [state]);

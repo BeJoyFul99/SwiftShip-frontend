@@ -4,10 +4,6 @@ export function middleware(request: NextRequest) {
   const jwt_token = request.cookies.get("jwt_token")?.value || null;
   const isProtectedRoute = request.nextUrl.pathname.startsWith("/dashboard");
 
-  console.log("paht", request.nextUrl.pathname);
-
-  console.log("JWT Token:", jwt_token);
-
   if (jwt_token && request.nextUrl.pathname === "/login") {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
