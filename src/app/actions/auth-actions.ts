@@ -1,80 +1,82 @@
 "use server";
 
+import { apiFetcher } from "@/lib/apis";
 import { LoginActionResponse, SignupActionResponse } from "@/types/authForm";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function loginSubmit(
+export async function loginAction(
   prevState: LoginActionResponse,
   formData: FormData
 ) {
   const email = formData.get("email");
   const password = formData.get("password");
-  // Implement your login logic here
-
   let response: LoginActionResponse = {
     success: false,
     message: "",
     input: prevState?.input || { email: email as string },
   };
+  try {
+    const res = await apiFetcher("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+    const data = await res?.json();
+    console.log("Fetch response:", res); // Log the fetch response object
+    if (res.ok && data) {
+      const errors = [data?.message];
+      if (data.code === "LOGIN_SUCCESS") {
+        const cookieHeader = res.headers.get("set-cookie");
+        if (!cookieHeader)
+          throw new Error("No set-cookie header found in response");
 
-  const res = await fetch(`${process.env.BACKEND_URL}/api/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  }).catch((error) => {
+        const cookie = cookieHeader.split(";"); // Extract the cookie value
+        const tokenParts = cookie[0].split("=");
+        if (tokenParts.length !== 2) {
+          throw new Error("Invalid cookie format");
+        }
+        (await cookies()).set(tokenParts[0], tokenParts[1], {
+          httpOnly: true, // Recommended for security (if client-side doesn't need to read it)
+          secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
+          maxAge: 60 * 60 * 24 * 1, // 1 day
+          path: "/", // Make the cookie available to all paths
+        });
+        response = {
+          success: true,
+          message: data.message,
+          data: data?.user,
+          code: data?.code,
+          debugMsg: data.debugMsg || `Status code: ${res?.status}`,
+          input: { email: email as string },
+          redirectPath: "/dashboard",
+        };
+      } else {
+        response = {
+          success: false,
+          message: data.message || "Login failed. Please try again.",
+          code: data?.code,
+          debugMsg: data.debugMsg || `Status code: ${res?.status}`,
+          input: { email: email as string },
+          errors: errors, // Example error messages
+        };
+      }
+    }
+  } catch (error) {
     response = {
       success: false,
       message: "Login failed. Please try again.",
       debugMsg: `Status code: ${error.message}`,
       input: { email: email as string },
     };
-  });
-
-  const data = await res?.json();
-  if (data) {
-    const errors = [data?.message];
-
-    if (data.code === "LOGIN_SUCCESS" && data.jwt_token) {
-      (await cookies()).set("jwt_token", data.jwt_token, {
-        httpOnly: true, // Recommended for security (if client-side doesn't need to read it)
-        secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
-        maxAge: 60 * 60 * 24 * 1, // 1 day
-        path: "/", // Make the cookie available to all paths
-      });
-
-      response = {
-        success: true,
-        message: data.message,
-        data: { token: data.jwt_token, user: data.user },
-        code: data?.code,
-        debugMsg: data.debugMsg || `Status code: ${res?.status}`,
-        input: { email: email as string },
-        redirectPath: "/dashboard",
-      };
-    } else {
-      response = {
-        success: false,
-        message: data.message || "Login failed. Please try again.",
-        code: data?.code,
-        debugMsg: data.debugMsg || `Status code: ${res?.status}`,
-        input: { email: email as string },
-        errors: errors, // Example error messages
-      };
-    }
   }
-  // This console.log should now show the full JSON object
-  console.log("JSON parsed successfully:", data);
 
   return response;
 }
 
-export async function signupSubmit(
+export async function signupAction(
   prevState: SignupActionResponse,
   formData: FormData
 ) {
@@ -166,8 +168,18 @@ export async function signupSubmit(
 
   return response;
 }
-export async function logoutSubmit() {
-  (await cookies()).delete("jwt_token");
-  
+export async function logoutAction() {
+  // Call backend to invalidate token and clear cookie
+  try {
+    // Use apiFetcher which will send the existing jwt_token cookie to the backend
+    const res = await apiFetcher("/api/auth/logout", { method: "POST" });
+    if (res.ok) {
+      const data = await res.json();
+      console.log("Backend logout response:", data);
+    }
+  } catch (error) {
+    console.error("Error calling backend logout:", error);
+  }
+  (await cookies()).delete("jwt_token"); // Also delete the cookie on the Next.js server side
   redirect("/login");
 }

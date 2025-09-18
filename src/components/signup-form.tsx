@@ -1,10 +1,10 @@
 "use client";
-import { logoutSubmit, signupSubmit } from "@/app/actions/auth-actions";
-import commonCountryCodes, { cn } from "@/lib/utils";
+import { signupAction } from "@/app/actions/auth-actions";
+import { cn, commonCountryCodes } from "@/lib/utils";
 import { Label } from "@radix-ui/react-label";
 import { AlertCircleIcon } from "lucide-react";
 import Form from "next/form";
-import React, { useActionState, useEffect, useRef } from "react";
+import React, { useActionState, useEffect } from "react";
 import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
 import { Button } from "./ui/button";
 import {
@@ -38,7 +38,7 @@ export function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const [state, action, isPending] = useActionState(signupSubmit, initialState);
+  const [state, action, isPending] = useActionState(signupAction, initialState);
   if (state?.debugMsg) {
     console.log("Debug Message:", state);
   }

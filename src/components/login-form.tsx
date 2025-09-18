@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Form from "next/form";
-import { loginSubmit } from "@/app/actions/auth-actions";
+import { loginAction } from "@/app/actions/auth-actions";
 import { useActionState, useEffect } from "react";
 import { LoginActionResponse } from "@/types/authForm";
 import { Spinner } from "./ui/shadcn-io/spinner";
@@ -30,30 +30,26 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const [state, action, isPending] = useActionState(loginSubmit, initialState);
+  const [state, action, isPending] = useActionState(loginAction, initialState);
   const { setUser } = useAuth();
   if (state?.debugMsg) {
     console.log("Debug Message:", state);
   }
+
   useEffect(() => {
     if (state?.success && state?.redirectPath) {
-      console.log(state);
-
-      setUser(state?.data?.user || null);
-      const storedUser = localStorage.getItem("user");
-      console.log(storedUser);
-
+      setUser(state?.data || null);
       // You can add a toast notification here if desired
-      toast.info(`Welcome back ${state?.data?.user.username}!`, {
-        description: "Redirecting to dashboard...",
-        duration: 4000,
+      toast.info(`Welcome back ${state?.data?.username}!`, {
+        description: "Logging in...",
+        duration: 2000,
       });
-
-      setTimeout(() => {}, 1000);
-
-      redirect(state?.redirectPath);
+      setTimeout(() => {
+        redirect(state?.redirectPath);
+      }, 1000);
     }
   }, [state]);
+
   return (
     <div
       className={cn(
@@ -76,7 +72,7 @@ export function LoginForm({
             <div className="grid gap-6 text-foreground ">
               <div className="flex  gap-4">
                 <Button
-                  onClick={() => console.log("Google login clicked")}
+                  onClick={() => console.log("Apple login clicked")}
                   size={"lg"}
                   type="button"
                   aria-label="Login with Apple"

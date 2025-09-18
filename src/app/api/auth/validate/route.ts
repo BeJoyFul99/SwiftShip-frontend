@@ -1,27 +1,26 @@
+import { apiFetcher } from "@/lib/apis";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   const token = (await cookies()).get("jwt_token")?.value;
   if (token) {
-    const backendRes = await fetch(
-      `${process.env.BACKEND_URL}/api/auth/validate-jwt`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
+    try {
+      const backendRes = await apiFetcher("/api/auth/validate-jwt", {
+        method: "GET",
+      });
+      if (!backendRes.ok) {
+        return NextResponse.json({ isAuthenticated: false }, { status: 401 });
       }
-    );
 
-    if (!backendRes.ok) {
-      console.log("backendres not ok wtf");
+      const data = await backendRes.json();
+
+      return NextResponse.json(data);
+    } catch (error) {
+      console.error("Error validating token:", error);
       return NextResponse.json({ isAuthenticated: false }, { status: 401 });
     }
-
-    const data = await backendRes.json();
-    console.log(backendRes.status, data);
-    return NextResponse.json(data);
   } else {
-    console.log("401 error wtf");
-
     return NextResponse.json({ isAuthenticated: false }, { status: 401 });
   }
 }

@@ -9,7 +9,8 @@ import {
   useCallback,
   useEffect,
 } from "react";
-import { logoutSubmit } from "@/app/actions/auth-actions";
+import { logoutAction } from "@/app/actions/auth-actions";
+import { toast } from "sonner";
 
 // Define the shape of your context value
 interface AuthContextType {
@@ -28,13 +29,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Function to clear user data and potentially redirect
   const logout = useCallback(() => {
+    toast.info("Logging out...");
     setUser(null);
     localStorage.removeItem("user");
-    logoutSubmit();
-    // In a real app, you'd also hit your backend /api/auth/logout endpoint
-    // to clear the httpOnly cookie and blacklist the token.
-    // router.push('/login'); // Optional: redirect to login after logout
+    logoutAction();
   }, []);
+
+  const mountUser = useCallback(() => {
+    setIsLoading(true);
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("Failed to parse user from localStorage", error);
+        localStorage.removeItem("user");
+        logout(); // Clear user if localStorage data is corrupted
+      }
+    } else {
+      console.log("no user found");
+    }
+    setIsLoading(false);
+  }, [user]);
 
   // Function to check authentication status with the Next.js API route
   const isTokenValidate = useCallback(async () => {
@@ -48,13 +65,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // If authenticated, try to load user from localStorage
           const storedUser = localStorage.getItem("user");
           if (storedUser) {
-            try {
-              setUser(JSON.parse(storedUser));
-            } catch (error) {
-              console.error("Failed to parse user from localStorage", error);
-              localStorage.removeItem("user");
-              logout(); // Clear user if localStorage data is corrupted
-            }
+            mountUser();
           } else {
             // No user in localStorage, but token exists. This could happen if:
             // 1. User cleared localStorage.
@@ -81,23 +92,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false);
     }
-  }, [logout]);
+  }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setIsLoading(false);
+    mountUser();
+    if (user) isTokenValidate();
   }, []);
 
   useEffect(() => {
     setIsLoading(true);
+    console.log("user state changed:", user);
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
     }
     setIsLoading(false);
   }, [user]);

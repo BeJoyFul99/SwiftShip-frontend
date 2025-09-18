@@ -6,7 +6,7 @@ export type LoginActionResponse = {
   input?: Record<string, any>;
   errors?: string[];
   redirectPath?: string;
-  data?: { token: string; user: User } | null;
+  data?: User | null;
 };
 
 export type User = {
