@@ -6,11 +6,11 @@ import { Progress } from "../ui/progress";
 function TrackingItem({
   data,
   selectItem,
-  isSelected,
+  isSelected = false,
 }: {
   data: TrackingDataProp;
   selectItem: (data: TrackingDataProp) => void;
-  isSelected: boolean;
+  isSelected?: boolean;
 }) {
   return (
     <ShapedButton
@@ -26,12 +26,16 @@ function TrackingItem({
           </p>
         </div>
         <div className="item-progress flex w-full items-center justify-between gap-2">
-          <span className="origin-data data-label blur-bg">{data.origin.code}</span>
+          <span className="origin-data data-label blur-bg">
+            {data.origin.code}
+          </span>
           <Progress
             className="w-full *>[data-slot='progress-indicator']:bg-white bg-background "
             value={20}
           ></Progress>
-          <span className="dest-data data-label blur-bg">{data.destination.code}</span>
+          <span className="dest-data data-label blur-bg">
+            {data.destination.code}
+          </span>
         </div>
         <div className="tracking-data-details-name flex w-full items-center justify-between gap-5 text-base text-foreground/30">
           <p className="max-w-xl  ">

@@ -64,12 +64,12 @@ export async function loginAction(
         };
       }
     }
-  } catch (error) {
+  } catch (error: any) {
     response = {
+      ...response,
       success: false,
       message: "Login failed. Please try again.",
       debugMsg: `Status code: ${error.message}`,
-      input: { email: email as string },
     };
   }
 

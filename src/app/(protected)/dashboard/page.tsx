@@ -3,12 +3,12 @@ import { useAuth } from "@/app/context/AuthContext";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TrackingFilter } from "./my-orders/page";
 import TrackingItem from "@/components/tracking/tracking-item";
 import { fakeTrackingData, TrackingDataProp } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
+import { TrackingFilter } from "@/components/tracking/TrackingFilter";
 
 // The MapComponent will only be imported and rendered on the client side
 const MapComponent = dynamic(() => import("../../../components/MapComponent"), {
@@ -18,9 +18,9 @@ export default function Page() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState<TrackingDataProp[]>([]);
   const [filterID, setFilterID] = useState("");
-  const onFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFilter = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     const filtered = fakeTrackingData.filter((data) =>
       data.trackingNumber.includes(value.toUpperCase())
@@ -28,14 +28,7 @@ export default function Page() {
     setFilteredData(filtered);
     setFilterID(value);
   };
-  useEffect(() => {
-    const trackingNumber = searchParams.get("trackingNumber");
-    if (trackingNumber) {
-      fakeTrackingData.map((data) => {
-        if (data.trackingNumber === trackingNumber) setSelectedItem(data);
-      });
-    }
-  }, []);
+
   const selectItem = (data: TrackingDataProp) => {
     const params = new URLSearchParams(searchParams.toString());
     console.log(params);

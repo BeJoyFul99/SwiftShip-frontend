@@ -25,19 +25,28 @@ import { Button } from "../ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Skeleton } from "../ui/skeleton";
 import { Badge } from "../ui/badge";
+
 function SideNavbar({ className }: { className?: string }) {
   const { isClosed, toggle } = useSideNavToggler();
   const { user, logout, isLoading } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
 
-  const isActive = (path: string, originVariant: string = "sidebar") =>
-    path === pathname ? "active" : originVariant;
+  const isActive = (path: string, originVariant = "default") =>
+    path === pathname
+      ? "active"
+      : (originVariant as
+          | "default"
+          | "outline"
+          | "active"
+          | "sidebar"
+          | "tracking-item-active"
+          | null
+          | undefined);
 
   const handleRouting = (path: string) => {
     if (path && path !== pathname) router.push(path);
   };
-  console.log(isActive("/dashboard/my-orders"));
 
   const getAccountBadge = () => {
     let msg = "Verified";

@@ -45,7 +45,9 @@ export function LoginForm({
         duration: 2000,
       });
       setTimeout(() => {
-        redirect(state?.redirectPath);
+        if (state?.redirectPath) {
+          return redirect(state?.redirectPath);
+        }
       }, 1000);
     }
   }, [state]);

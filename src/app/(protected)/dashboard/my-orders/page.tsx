@@ -9,6 +9,7 @@ import { EllipsisVertical, Filter } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { TrackingFilter } from "@/components/tracking/TrackingFilter";
 
 // The MapComponent will only be imported and rendered on the client side
 const MapComponent = dynamic(
@@ -22,9 +23,9 @@ function Page() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [selectItem, setSelectedItem] = useState<TrackingDataProp | null>(null);
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState<TrackingDataProp[]>([]);
   const [filterID, setFilterID] = useState("");
-  const onFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFilter = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     const filtered = fakeTrackingData.filter((data) =>
       data.trackingNumber.includes(value)
@@ -110,26 +111,3 @@ function Page() {
 }
 
 export default Page;
-
-export const TrackingFilter = ({ onFilter }: { onFilter?: () => void }) => {
-  return (
-    <div className="tracking-filter bg-background sticky top-0 gap-3 border border-amber-50/15 p-2 flex flex-col w-full  ">
-      <div className="flex  items-center justify-between gap-26">
-        <p>Tracking Filter</p>
-        <div className="action-group">
-          <ShapedButton>
-            <Filter />
-          </ShapedButton>
-          <ShapedButton>
-            <EllipsisVertical />
-          </ShapedButton>
-        </div>
-      </div>
-      <Input
-        className="bg-muted/30"
-        placeholder="Order ID..."
-        onInput={onFilter}
-      />
-    </div>
-  );
-};
