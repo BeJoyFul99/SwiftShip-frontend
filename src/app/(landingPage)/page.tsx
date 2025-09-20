@@ -68,13 +68,13 @@ export default function Home() {
       </section>
       <section
         id="how-it-works"
-        className="w-full h-full mt-5 mb-10 py-17 px-2 md:py-20 md:px-10 bg-foreground/3"
+        className="w-full h-max mt-5 mb-10 py-17 px-2 md:py-20 md:px-10 bg-foreground/3"
       >
         <Howitwokrs />
       </section>
       <section
         id="metrics"
-        className="mx-8 h-full grid grid-cols-1 lg:grid-cols-2 py-10"
+        className="mx-8 h-max grid grid-cols-1 lg:grid-cols-2 py-10"
       >
         <div className="grid grid-rows-2 grid-cols-1">
           <div className="metric-1 min-h-[350] justify-between flex flex-col items-between py-10 px-5 border border-foreground/20 border-x-0">
@@ -115,7 +115,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer className="w-full h-full bg-background md:p-20 p-10">
+      <footer className="w-full h-fit bg-background md:p-20 p-10">
         <div className="mt-10 flex flex-wrap gap-5 justify-between items-end border-b border-background/20 pb-10 md:pb-20">
           <h1 className="text-xl md:text-4xl lg:text-6xl text-foreground">
             Ready to Ship with <br />
