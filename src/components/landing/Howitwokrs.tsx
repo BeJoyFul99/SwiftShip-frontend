@@ -126,13 +126,13 @@ function Howitwokrs() {
       ref={containerRef}
     >
       <h1 className="text-xl md:text-4xl/11 top-0 text-foreground font-semibold text-center mb-3 md:w-10/12 max-w-[858px]">
-        Shop globally with our streamlined process. Enjoy{" "}
-        <span className="text-[var(--foreground-half)]">
+        Shop globally with our streamlined process. Enjoy {" "}
+        <span className="text-foreground/35">
           hassle-free international shopping
         </span>
         .
       </h1>
-      <p className="text-[11px] md:text-lg top-0 text-foreground text-center md:w-7/12">
+      <p className="text-[11px] md:text-lg top-0 text-muted-foreground text-center md:w-7/12">
         SwiftShip ensures secure payments, reliable shipping, and real-time
         tracking for a seamless global shopping experience.
       </p>
@@ -150,14 +150,14 @@ function Howitwokrs() {
             }}
           >
             <div className="stack-item-content h-full flex flex-col justify-between">
-              <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-2">
+              <h2 className="text-3xl md:text-4xl font-semibold text-white/80 mb-2">
                 0{index + 1}
               </h2>
-              <p className="text-base md:text-2xl font-bold  w-fit px-3 py-1 bg-white/20  backdrop-blur-2xl rounded-2xl ">
+              <p className="text-base md:text-2xl font-bold  w-fit px-3 py-1 bg-white/20  backdrop-blur-2xl rounded-2xl text-white/80 ">
                 {item.title}
               </p>
             </div>
-            <span className="description absolute left-2 bottom-0 translate-y-[120%] text-base md:text-lg w-full  font-light text-[var(--foreground)]/80">
+            <span className="description absolute left-2 bottom-0 translate-y-[120%] text-base md:text-lg w-full  font-light text-foreground/85">
               {item.description}
             </span>
           </div>

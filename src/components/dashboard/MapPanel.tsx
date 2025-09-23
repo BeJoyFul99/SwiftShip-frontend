@@ -21,15 +21,15 @@ export default function MapPanel({
   eta = "05:30 AM, Aug 20, 2022",
 }: MapPanelProps) {
   return (
-    <Card className="panel blur-bg text-foreground h-full border-border pb-0">
-      <CardHeader className="pb-3">
+    <Card className="panel blur-bg text-foreground relative h-full border-border pb-0 md:min-h-auto  ">
+      <CardHeader>
         <div>
           <h3 className="text-lg font-semibold text-foreground">{title}</h3>
           <p className="text-sm text-muted-foreground">{subtitle}</p>
         </div>
       </CardHeader>
-      <CardContent className="p-0 h-full relative">
-        <MapComponent className="h-full w-full rounded-b-lg z-40  " />
+      <CardContent className="p-0 relative h-full min-h-[450px]">
+        <MapComponent className="rounded-b-lg z-40 h-full" />
         {/* Status box at bottom left */}
         <div className="blur-bg transition-all absolute w-[96%] md:w-max z-50 bottom-2 left-2 md:bottom-4 md:left-4 !bg-background/35 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-foreground/20">
           <div className="space-y-1">

@@ -9,6 +9,7 @@ import { useTheme } from "@/app/context/ThemeContext";
 import { PanelLeftDashed, Sun, Moon } from "lucide-react";
 import { Spinner } from "../ui/shadcn-io/spinner";
 import ShapedButton from "../ui/shaped-button";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 function Navbar() {
   const [isLandingVisible, setIsLandingVisible] = useState(true);
@@ -39,7 +40,9 @@ function Navbar() {
     <nav
       className={`fixed left-[50%] -translate-x-[50%] z-50 px-5 py-4 transition-all duration-300 ${
         isLandingVisible
-          ? "top-1.5 text-foreground w-[98%]"
+          ? `top-1.5   w-[98%] ${
+              theme === "light" ? "text-background" : "text-foreground"
+            }`
           : "shadow-md w-full backdrop-blur-sm bg-background/80 border-b border-border"
       }`}
     >
@@ -53,7 +56,7 @@ function Navbar() {
         </div>
 
         {/* Right side items */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {/* Theme Toggle Button */}
           <ShapedButton
             type="button"
@@ -62,9 +65,9 @@ function Navbar() {
             className="hover:bg-accent/20 transition-colors"
           >
             {theme === "light" ? (
-              <Moon className="h-4 w-4 text-muted-foreground" />
+              <Moon className="h-6 w-6" />
             ) : (
-              <Sun className="h-4 w-4 text-foreground" />
+              <Sun className="h-6 w-6 text-foreground" />
             )}
           </ShapedButton>
 
@@ -84,10 +87,15 @@ function Navbar() {
           ) : (
             <Link
               href="/dashboard"
-              className="nav-item flex items-center space-x-2 gap-2 text-foreground hover:text-primary transition-colors"
+              className="nav-item !bg-transparent flex items-center space-x-2 gap-2 text-foreground transition-colors"
             >
-              <PanelLeftDashed />
-              Dashboard
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
             </Link>
           )}
         </div>

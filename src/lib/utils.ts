@@ -1,10 +1,9 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-
+export const isDesktopMediaQuery: string = "(min-width:768px)";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
 export const commonCountryCodes = [
   { name: "Canada", code: "+1", iso: "CA" },
   { name: "United States", code: "+1", iso: "US" },

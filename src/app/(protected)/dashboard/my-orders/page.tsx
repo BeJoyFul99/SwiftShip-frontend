@@ -1,16 +1,15 @@
 "use client";
-import TrackingItemDetail from "@/components/tracking/tacking-item-detail";
-import TrackingItem from "@/components/tracking/tracking-item";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import ShapedButton from "@/components/ui/shaped-button";
-import { fakeTrackingData, TrackingDataProp } from "@/lib/utils";
-import { EllipsisVertical, Filter } from "lucide-react";
+import {
+  fakeTrackingData,
+  isDesktopMediaQuery,
+  TrackingDataProp,
+} from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { TrackingFilter } from "@/components/tracking/TrackingFilter";
-
+import { useMediaQuery } from "@/hooks/use-media-query";
+import MyOrderDesktopView from "@/components/my-orders/desktop-view";
+import MyOrderMobileView from "@/components/my-orders/mobile-view";
 // The MapComponent will only be imported and rendered on the client side
 const MapComponent = dynamic(
   () => import("../../../../components/MapComponent"),
@@ -18,11 +17,14 @@ const MapComponent = dynamic(
     ssr: false,
   }
 );
+
 function Page() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [selectItem, setSelectedItem] = useState<TrackingDataProp | null>(null);
+  const [selectedItem, setSelectedItem] = useState<TrackingDataProp | null>(
+    null
+  );
   const [filteredData, setFilteredData] = useState<TrackingDataProp[]>([]);
   const [filterID, setFilterID] = useState("");
   const onFilter = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -66,45 +68,22 @@ function Page() {
     setSelectedItem(null);
   };
 
+  const isDesktop = useMediaQuery(isDesktopMediaQuery);
+
   return (
     <div className="tracking-content flex items-center relative h-full w-full border">
       <MapComponent className="w-full h-full absolute z-10" />
-      <div className="   tracking-list bg-background h-full flex overflow-hidden flex-col z-20">
-        <TrackingFilter onFilter={onFilter} />
-        <ScrollArea className="overflow-y-auto w-full">
-          <div className="flex flex-col justify-start ">
-            {filterID && filteredData.length > 0 ? (
-              filteredData.map((data, index) => (
-                <TrackingItem
-                  data={data}
-                  key={index}
-                  selectItem={SelectItem}
-                  isSelected={
-                    data?.trackingNumber === selectItem?.trackingNumber
-                  }
-                />
-              ))
-            ) : filterID && filteredData.length === 0 ? (
-              <div className="flex flex-col justify-center items-center h-full w-full gap-2">
-                <p className="text-foreground">No results found</p>
-              </div>
-            ) : (
-              fakeTrackingData.map((data, index) => (
-                <TrackingItem
-                  data={data}
-                  key={index}
-                  selectItem={SelectItem}
-                  isSelected={
-                    data?.trackingNumber === selectItem?.trackingNumber
-                  }
-                />
-              ))
-            )}
-          </div>
-        </ScrollArea>
-      </div>
-      {selectItem && (
-        <TrackingItemDetail data={selectItem} close={cancelSelect} />
+      {isDesktop ? (
+        <MyOrderDesktopView
+          onFilter={onFilter}
+          filteredData={filteredData}
+          SelectItem={SelectItem}
+          selectedItem={selectedItem}
+          filterID={filterID}
+          cancelItem={cancelSelect}
+        />
+      ) : (
+        <MyOrderMobileView />
       )}
     </div>
   );

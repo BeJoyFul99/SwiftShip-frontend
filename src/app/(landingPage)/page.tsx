@@ -11,12 +11,12 @@ export default function Home() {
       <section id="landing" className="w-full h-full p-3 pt-3 relative">
         <div className="content h-[640px] p-5 landing-content-bg relative rounded-lg shadow-lg w-full md:h-full flex items-center justify-center md:min-h-[860px] flex-col gap-6 bg-cover bg-center bg-no-repeat">
           <h1
-            className="blur-bg px-5 py-2 rounded-4xl text-[1.5rem] md:text-[3.5rem] mt-36 md:mt-45 font-bold mb-4 text-foreground text-center tracking-wide"
+            className="blur-bg !bg-white/5 px-5 py-2 rounded-4xl text-[1.5rem] md:text-[3.5rem] mt-36 md:mt-45 font-bold mb-4 text-white text-center tracking-wide"
             style={{ fontFamily: "var(--font-shippori-antique-b1)" }}
           >
             Welcome to{" "}
             <span
-              className="glass-text from-foreground to-primary"
+              className="glass-text from-foreground to-primary !text-white"
               style={{
                 fontFamily: "var(--font-shippori-antique-b1)",
               }}
@@ -25,7 +25,7 @@ export default function Home() {
             </span>
           </h1>
           <p
-            className="text-sm md:text-lg mt-[1.25rem] md:mt-[5rem] text-center text-foreground mb-6 w-10/12 md:w-6/12 leading-relaxed"
+            className="text-sm md:text-lg mt-[.65rem] md:mt-[5rem] text-center text-white/95 mb-6 w-10/12 md:w-6/12 leading-relaxed"
             style={{ fontFamily: "var(--font-shippori-antique)" }}
           >
             Revolutionizing global freight logistics. <br />

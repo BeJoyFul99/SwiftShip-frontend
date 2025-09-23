@@ -11,16 +11,10 @@ export default function DashboardHeader({
   userName = "Alberto",
   userTitle = "HGV Class1 - E/D",
   userCompany = "Niolax Group",
-  userLocation = "CA"
+  userLocation = "CA",
 }: DashboardHeaderProps) {
   return (
-    <div className="flex items-center gap-4 mb-6">
-      <Avatar className="h-16 w-16 border-border">
-        <AvatarImage src="/placeholder-avatar.jpg" alt={userName} />
-        <AvatarFallback className="bg-primary/20 text-primary font-semibold border-border">
-          {userName.charAt(0)}
-        </AvatarFallback>
-      </Avatar>
+    <div className="flex items-center gap-4 mb-6 md:flex-row flex-col">
       <div className="flex-1">
         <h1 className="text-2xl font-bold text-foreground">
           Good Morning {userName}!

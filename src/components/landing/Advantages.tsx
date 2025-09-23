@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import SplitText from "gsap/SplitText";
@@ -30,18 +30,15 @@ function Advantages() {
   ];
 
   const [currentDescriptionIndex, setCurrentDescriptionIndex] = useState(0);
+
   const handleDescriptionChange = (index: number) => {
-    setCurrentDescriptionIndex(index);
-    console.log("Description changed to index:", descriptions[index]);
+    setCurrentDescriptionIndex((i) => index);
   };
 
   useGSAP(
     () => {
-      console.log("GSAP effect running for index:", currentDescriptionIndex);
       const splitText = new SplitText(splitTextRef.current, {
         type: "words",
-       
-        wordsClass: "word",
       });
 
       gsap.fromTo(
@@ -75,7 +72,7 @@ function Advantages() {
             className={
               "rounded-lg hover:scale-105 transition-transform duration-300 hover:cursor-pointer" +
               (currentDescriptionIndex === index
-                ? " border-2 border-orange-500"
+                ? " border-3 border-foreground/70"
                 : "")
             }
             alt={description["alt"]}
@@ -86,10 +83,11 @@ function Advantages() {
         ))}
       </div>
       <div ref={splitTextRef}>
-        <h2 className="text-lg/5 md:text-4xl/10 font-bold text-wrap text-[var(--foreground)]/80">
-          {descriptions[currentDescriptionIndex]["title"]} ---
-          <span className="text-[var(--foreground-half)]">
-            {" "}
+        <h2 className="text-lg/5 md:text-4xl/10 font-bold text-wrap text-[var(--foreground)]/80 ">
+          <span>
+            {`${descriptions[currentDescriptionIndex]["title"]} ---`}{" "}
+          </span>
+          <span className="text-foreground/35">
             {descriptions[currentDescriptionIndex]["content"]}
           </span>
         </h2>

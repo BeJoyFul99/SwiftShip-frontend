@@ -335,3 +335,58 @@
     @apply text-xs px-1 py-0.5 rounded-xs;
   }
 }
+
+/* ========================================
+   CUSTOM SCROLLBAR STYLES
+   ======================================== */
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.556 0 0 / 0.3);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.556 0 0 / 0.5);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: oklch(0.556 0 0 / 0.7);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.556 0 0 / 0.3) transparent;
+}
+
+/* Dark mode scrollbar adjustments */
+.dark ::-webkit-scrollbar-thumb {
+  background: oklch(0.708 0 0 / 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.708 0 0 / 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb:active {
+  background: oklch(0.708 0 0 / 0.7);
+}
+
+.dark * {
+  scrollbar-color: oklch(0.708 0 0 / 0.3) transparent;
+}

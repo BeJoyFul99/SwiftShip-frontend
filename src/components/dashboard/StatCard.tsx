@@ -14,7 +14,7 @@ export default function StatCard({ title, value, delta, deltaLabel }: StatCardPr
   const isNeutral = delta === 0;
 
   return (
-    <Card className="panel blur-bg text-foreground border-border">
+    <Card className="panel blur-bg text-foreground border-border min-w-[200px] w-full">
       <CardHeader className="pb-2">
         <p className="text-sm font-medium text-muted-foreground">{title}</p>
       </CardHeader>

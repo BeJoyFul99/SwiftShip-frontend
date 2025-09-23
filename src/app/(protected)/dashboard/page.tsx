@@ -7,6 +7,7 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import StatCard from "@/components/dashboard/StatCard";
 import MapPanel from "@/components/dashboard/MapPanel";
 import ActiveShipments from "@/components/dashboard/ActiveShipments";
+import RecentTransactions from "@/components/dashboard/RecentTransactions";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Page() {
@@ -53,7 +54,7 @@ export default function Page() {
   }
 
   return (
-    <ScrollArea className="p-6 h-full border border-border">
+    <div className="p-6 h-full border border-border overflow-y-auto">
       <div className="space-y-6 bg-background text-foreground">
         {/* Header Section */}
         <DashboardHeader
@@ -63,7 +64,7 @@ export default function Page() {
           userLocation="CA"
         />
         {/* KPI Cards Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="w-full flex pb-4 items-stretch gap-4 overflow-x-auto">
           <StatCard title="Total Shipment" value={totalShipments} delta={1.2} />
           <StatCard title="Pickup Package" value={inTransitCount} delta={3.6} />
           <StatCard title="Pending Package" value={pendingCount} delta={-2.8} />
@@ -73,9 +74,14 @@ export default function Page() {
             delta={3.0}
           />
         </div>
+
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6  min-h-[600px]  h-full">
           {/* Map Panel - Left Side */}
+          <div className="lg:col-span-3">
+            <RecentTransactions />
+          </div>
+          {/* Map Panel - Right Side */}
           <div className="lg:col-span-2">
             <MapPanel />
           </div>
@@ -85,6 +91,6 @@ export default function Page() {
           <ActiveShipments onShipmentClick={handleShipmentClick} />
         </div>
       </div>
-    </ScrollArea>
+    </div>
   );
 }

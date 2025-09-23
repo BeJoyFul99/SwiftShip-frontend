@@ -4,6 +4,14 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Search, Filter, Plus, MoreHorizontal } from "lucide-react";
 import {
   DropdownMenu,
@@ -16,6 +24,7 @@ import {
   TrackingDataProp,
   getStatusColor,
 } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ActiveShipmentsProps {
   onShipmentClick?: (trackingNumber: string) => void;
@@ -112,103 +121,91 @@ export default function ActiveShipments({
             <span className="hidden md:block">Filters</span>
           </Button>
         </div>
-
-        {/* Table */}
-        <div className="rounded-lg border border-border bg-background/50  overflow-auto ">
-          <div className="overflow-x-auto">
-            <table className="w-full ">
-              <thead className="border-b border-border">
-                <tr className="text-left">
-                  <th className="p-4 font-medium text-muted-foreground">
-                    Shipment ID
-                  </th>
-                  <th className="p-4 font-medium text-muted-foreground">
-                    Status
-                  </th>
-                  <th className="p-4 font-medium text-muted-foreground">
-                    Origin
-                  </th>
-                  <th className="p-4 font-medium text-muted-foreground">
-                    Destination
-                  </th>
-                  <th className="p-4 font-medium text-muted-foreground">
-                    Estimated Arrival
-                  </th>
-                  <th className="p-4 font-medium text-muted-foreground"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedData.map((item, index) => (
-                  <tr
-                    key={index}
-                    className="border-b border-border hover:bg-background/30"
-                  >
-                    <td className="p-4">
-                      <button
-                        onClick={() => handleShipmentClick(item.trackingNumber)}
-                        className="text-primary hover:underline font-medium"
-                      >
-                        {item.trackingNumber}
-                      </button>
-                    </td>
-                    <td className="p-4">
-                      <Badge
-                        variant="secondary"
-                        className={getStatusColor(item.status)}
-                      >
-                        {item.status}
-                      </Badge>
-                    </td>
-                    <td className="p-4 text-sm">
+        <div className="w-full">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Shipment ID</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Origin</TableHead>
+                <TableHead>Destination</TableHead>
+                <TableHead>Estimated Arrival</TableHead>
+                <TableHead></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {paginatedData.map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <button
+                      onClick={() => handleShipmentClick(item.trackingNumber)}
+                      className="text-primary hover:underline font-medium"
+                    >
+                      {item.trackingNumber}
+                    </button>
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      variant="secondary"
+                      className={getStatusColor(item.status)}
+                    >
+                      {item.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="text-sm">
                       <div className="text-foreground">{item.origin.city}</div>
                       <div className="text-muted-foreground">
                         {item.origin.country}
                       </div>
-                    </td>
-                    <td className="p-4 text-sm">
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="text-sm">
                       <div className="text-foreground">
                         {item.destination.city}
                       </div>
                       <div className="text-muted-foreground">
                         {item.destination.country}
                       </div>
-                    </td>
-                    <td className="p-4 text-sm text-foreground">
-                      {item.arrivalDate}
-                    </td>
-                    <td className="p-4">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="hover:bg-accent/20"
-                          >
-                            <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                          align="end"
-                          className="bg-background border-border"
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-sm text-foreground">
+                    {item.arrivalDate}
+                  </TableCell>
+                  <TableCell>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="hover:bg-accent/20"
                         >
-                          <DropdownMenuItem className="hover:bg-accent/20">
-                            View Details
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="hover:bg-accent/20">
-                            Edit
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="hover:bg-accent/20">
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        align="end"
+                        className="bg-background border-border"
+                      >
+                        <DropdownMenuItem className="hover:bg-accent/20">
+                          View Details
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="hover:bg-accent/20">
+                          Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="hover:bg-accent/20">
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
+        {/* Table */}
 
         {/* Pagination */}
         <div className="flex items-center justify-between">
