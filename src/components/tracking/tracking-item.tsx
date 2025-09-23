@@ -15,12 +15,14 @@ function TrackingItem({
   return (
     <ShapedButton
       variant={isSelected ? "tracking-item-active" : "default"}
-      className="border rounded-none"
+      className="border rounded-none group"
       onClick={() => selectItem(data)}
     >
       <div className="tacking-order-item flex gap-2 flex-col p-2  w-full">
         <div className="item-head flex items-center justify-between">
-          <h1 className="text-foreground ">{data.trackingNumber}</h1>
+          <h1 className="text-foreground group-hover:text-background  ">
+            {data.trackingNumber}
+          </h1>
           <p className={cn(getStatusColor(data.status), "text-xs blur-bg")}>
             {data.status}
           </p>
@@ -30,14 +32,14 @@ function TrackingItem({
             {data.origin.code}
           </span>
           <Progress
-            className="w-full *>[data-slot='progress-indicator']:bg-white bg-background "
+            className="w-full *>[data-slot='progress-indicator']:bg-background   group-hover:bg-background/80 "
             value={20}
           ></Progress>
           <span className="dest-data data-label blur-bg">
             {data.destination.code}
           </span>
         </div>
-        <div className="tracking-data-details-name flex w-full items-center justify-between gap-5 text-base text-foreground/30">
+        <div className="tracking-data-details-name flex w-full items-center justify-between gap-5 text-base text-foreground/60 group-hover:text-background/60">
           <p className="max-w-xl  ">
             {data.origin.city},{data.origin.country}
           </p>
@@ -45,7 +47,7 @@ function TrackingItem({
             {data.destination.city},{data.destination.country}
           </p>
         </div>{" "}
-        <div className="tracking-data-details-name flex w-full items-center justify-between gap-5 text-xs text-foreground/30">
+        <div className="tracking-data-details-name flex w-full items-center justify-between gap-5 text-xs text-foreground/60 group-hover:text-background/60">
           <p className="max-w-xl  ">{data.departureDate}</p>
           <p>{data.arrivalDate}</p>
         </div>

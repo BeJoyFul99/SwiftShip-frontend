@@ -1,126 +1,90 @@
 "use client";
 import { useAuth } from "@/app/context/AuthContext";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import TrackingItem from "@/components/tracking/tracking-item";
-import { fakeTrackingData, TrackingDataProp } from "@/lib/utils";
+import { fakeTrackingData } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import dynamic from "next/dynamic";
-import { useState, useEffect } from "react";
-import { TrackingFilter } from "@/components/tracking/TrackingFilter";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import StatCard from "@/components/dashboard/StatCard";
+import MapPanel from "@/components/dashboard/MapPanel";
+import ActiveShipments from "@/components/dashboard/ActiveShipments";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-// The MapComponent will only be imported and rendered on the client side
-const MapComponent = dynamic(() => import("../../../components/MapComponent"), {
-  ssr: false,
-});
 export default function Page() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [filteredData, setFilteredData] = useState<TrackingDataProp[]>([]);
-  const [filterID, setFilterID] = useState("");
-  const onFilter = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = e.target.value;
-    const filtered = fakeTrackingData.filter((data) =>
-      data.trackingNumber.includes(value.toUpperCase())
-    );
-    setFilteredData(filtered);
-    setFilterID(value);
-  };
 
-  const selectItem = (data: TrackingDataProp) => {
+  // Calculate KPI values from fakeTrackingData
+  const totalShipments = fakeTrackingData.length;
+  const inTransitCount = fakeTrackingData.filter(
+    (item) => item.status === "IN TRANSIT"
+  ).length;
+  const pendingCount = fakeTrackingData.filter(
+    (item) =>
+      item.status === "PENDING" ||
+      item.status === "DELAYED" ||
+      item.status === "ON HOLD"
+  ).length;
+  const deliveredCount = fakeTrackingData.filter(
+    (item) => item.status === "ARRIVED" || item.status === "OUT FOR DELIVERY"
+  ).length;
+
+  const handleShipmentClick = (trackingNumber: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    console.log(params);
-    params.set("trackingNumber", data.trackingNumber);
+    params.set("trackingNumber", trackingNumber);
     router.push("/dashboard/my-orders" + "?" + params.toString());
   };
+
+  if (isLoading) {
+    return (
+      <div className="p-6 space-y-6 bg-background">
+        <Skeleton className="h-20 w-full" />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <Skeleton key={i} className="h-24" />
+          ))}
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          <Skeleton className="h-96 lg:col-span-2" />
+          <Skeleton className="h-96 lg:col-span-3" />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-rows-1 md:grid-cols-6 md:grid-rows-2 h-full w-full gap-2 p-3">
-      <Card className="panel md:col-span-4 blur-bg text-foreground">
-        <CardHeader>
-          {isLoading ? (
-            <Skeleton className="h-5" />
-          ) : (
-            <h2 className="panel-title flex items-center">
-              Welcome {user?.username}
-            </h2>
-          )}
-        </CardHeader>
-        <CardContent className="h-[90%] ">
-          {isLoading ? (
-            <Skeleton className="h-3" />
-          ) : (
-            <div className="flex w-full h-full gap-5">
-              <div className="bg-background h-full w-full flex-col flex overflow-hidden flex-1/3 shadow rounded-lg p-4">
-                <TrackingFilter onFilter={onFilter} />
-                <ScrollArea className="overflow-y-auto w-full relative ">
-                  <div className="flex flex-col justify-start ">
-                    {filterID && filteredData.length > 0 ? (
-                      filteredData.map((data, index) => (
-                        <TrackingItem
-                          data={data}
-                          key={index}
-                          selectItem={selectItem}
-                        />
-                      ))
-                    ) : filterID && filteredData.length === 0 ? (
-                      <div className="flex flex-col justify-center items-center h-full w-full gap-2">
-                        <p className="text-foreground">No results found</p>
-                      </div>
-                    ) : (
-                      fakeTrackingData.map((data, index) => (
-                        <TrackingItem
-                          data={data}
-                          key={index}
-                          selectItem={selectItem}
-                        />
-                      ))
-                    )}
-                  </div>
-                </ScrollArea>
-              </div>
-              <MapComponent className="h-full flex-2/3 w-full rounded-4xl" />
-            </div>
-          )}
-        </CardContent>
-      </Card>
-      <Card className="panel md:col-span-2 blur-bg text-foreground">
-        <CardHeader>
-          {isLoading ? (
-            <Skeleton className="h-5" />
-          ) : (
-            <h2 className="panel-title flex items-center">Drop Off Points</h2>
-          )}
-        </CardHeader>
-        <CardContent>
-          {isLoading ? <Skeleton className="h-3" /> : <p>ab</p>}
-        </CardContent>
-      </Card>
-      <Card className="panel md:col-span-2 blur-bg text-foreground">
-        <CardHeader>
-          {isLoading ? (
-            <Skeleton className="h-5" />
-          ) : (
-            <h2 className="panel-title flex items-center">My Packages</h2>
-          )}
-        </CardHeader>
-        <CardContent>
-          {isLoading ? <Skeleton className="h-3" /> : <p>abc</p>}
-        </CardContent>
-      </Card>
-      <Card className="panel md:col-span-4 blur-bg text-foreground">
-        <CardHeader>
-          {isLoading ? (
-            <Skeleton className="h-5" />
-          ) : (
-            <h2 className="panel-title flex items-center">News</h2>
-          )}
-        </CardHeader>
-        <CardContent>
-          {isLoading ? <Skeleton className="h-3" /> : <p>abc</p>}
-        </CardContent>
-      </Card>
-    </div>
+    <ScrollArea className="p-6 h-full border border-border">
+      <div className="space-y-6 bg-background text-foreground">
+        {/* Header Section */}
+        <DashboardHeader
+          userName={user?.username || "Alberto"}
+          userTitle="HGV Class1 - E/D"
+          userCompany="Niolax Group"
+          userLocation="CA"
+        />
+        {/* KPI Cards Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StatCard title="Total Shipment" value={totalShipments} delta={1.2} />
+          <StatCard title="Pickup Package" value={inTransitCount} delta={3.6} />
+          <StatCard title="Pending Package" value={pendingCount} delta={-2.8} />
+          <StatCard
+            title="Delivery Shipments"
+            value={deliveredCount}
+            delta={3.0}
+          />
+        </div>
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6  min-h-[600px]  h-full">
+          {/* Map Panel - Left Side */}
+          <div className="lg:col-span-2">
+            <MapPanel />
+          </div>
+        </div>
+        {/* Active Shipments Panel - Right Side */}
+        <div className="lg:col-span-3 h-full">
+          <ActiveShipments onShipmentClick={handleShipmentClick} />
+        </div>
+      </div>
+    </ScrollArea>
   );
 }

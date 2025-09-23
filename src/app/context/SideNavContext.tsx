@@ -9,7 +9,7 @@ interface SideNavContextType {
 const SideNavContext = createContext<SideNavContextType | undefined>(undefined);
 
 export function SideNavProvider({ children }: { children: React.ReactNode }) {
-  const [isClosed, setIsClosed] = useState(false);
+  const [isClosed, setIsClosed] = useState(true);
 
   const toggle = useCallback(() => {
     setIsClosed((isClosed) => !isClosed);

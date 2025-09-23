@@ -17,9 +17,9 @@ export default function ProtectedLayout({
 }>) {
   return (
     <SideNavProvider>
-      <div className=" w-full flex lg:pr-3 bg-background h-full">
-        <SideNavbar className="left-0 top-0 absolute lg:relative h-screen  z-50 transition" />
-        <div className="main-content lg:my-3 w-full flex flex-col  ">
+      <div className="w-full flex lg:pr-3 bg-background h-full text-foreground">
+        <SideNavbar className="left-0 top-0 absolute lg:relative h-screen z-50 transition  border-border  " />
+        <div className="main-content lg:my-3 w-full flex flex-col ">
           <DashboardNav />
           <DashboardWrapper>{children}</DashboardWrapper>
         </div>

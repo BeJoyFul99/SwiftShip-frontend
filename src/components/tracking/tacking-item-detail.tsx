@@ -12,6 +12,7 @@ import HistoryList, { HistoryItem } from "../ui/history-list";
 import OrderItem from "./OrderItem";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { ScrollArea } from "../ui/scroll-area";
 export interface TrackingItemDetailProp {
   data: TrackingDataProp;
   close: () => void;
@@ -25,7 +26,7 @@ function TrackingItemDetail({ data, close }: TrackingItemDetailProp) {
     );
   };
   return (
-    <div className="relative top-0 z-20 max-w-[455px] w-full tracking-order-detail !bg-transparent h-full overflow-y-auto min-w-[450px]  ">
+    <ScrollArea className="relative top-0 z-20 max-w-[455px] w-full tracking-order-detail !bg-transparent h-full overflow-y-auto min-w-[450px]  ">
       <div className="bg-muted w-full flex flex-col items-center gap-8 pb-8 border border-foreground/15">
         <ShapedButton
           shape={"pill"}
@@ -194,7 +195,7 @@ function TrackingItemDetail({ data, close }: TrackingItemDetailProp) {
           </Button>
         </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 }
 

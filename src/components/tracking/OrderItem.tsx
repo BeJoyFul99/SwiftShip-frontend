@@ -24,21 +24,21 @@ function OrderItem({
       <Link
         href={""}
         target="_blank"
-        className=" p-1 text-center !text-white/60 hover:bg-muted/20"
+        className=" p-1 text-center text-foreground/70 hover:bg-muted/20"
       >
         SHP20240130001
       </Link>
-      <div className="flex  w-full">
+      <div className="flex  w-full text-foreground/70">
         <div className="details flex flex-col gap-1 flex-1 ">
           <h1 className="text-bold text-base">(Yamato) {name}</h1>
-          <div className="desc *:text-sm ml-5 text-foreground/70">
+          <div className="desc *:text-sm ml-5 ">
             <p>{category}</p>
             <p>Made in: {product_origin}</p>
             <p>Material: {material}</p>
             <p>Weight: {net_weight}Kg</p>
           </div>
         </div>
-        <div className=" flex flex-col gap-1 items-start  text-sm">
+        <div className=" flex flex-col gap-1 items-start  text-sm font-bold">
           <p>${unit_value} YEN</p>
           <p className="text-foreground/70">Qty:{qty}</p>
         </div>

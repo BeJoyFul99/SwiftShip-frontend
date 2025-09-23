@@ -88,11 +88,11 @@ function SideNavbar({ className }: { className?: string }) {
         className={cn(
           className,
           isClosed ? "w-0" : "w-sm max-w-[75%] min-w-[200px]",
-          "sidebar transition-all bg-background overflow-auto flex flex-col gap-4 lg:gap-8 items-center py-3"
+          "sidebar fixed md:border-r-0 transition-all bg-background overflow-auto h-full flex flex-col gap-4 lg:gap-8 items-center py-3"
         )}
       >
         <div className="sidebar-header">
-          <ul className="sidebar-menu">
+          <ul className="sidebar-menu ">
             <li className="sidebar-menu-item">
               <Image src={"/logo.png"} alt="logo" width={75} height={65} />
               <Logo targetPath="/" />
@@ -118,7 +118,7 @@ function SideNavbar({ className }: { className?: string }) {
           <div className="sidebar-group">
             <div className="sidebar-label">Tracking</div>
             <ul className="sidebar-menu">
-              <li className="sidebar-menu-item">
+              <li className="sidebar-menu-item group">
                 <ShapedButton
                   className="w-full text-start"
                   textPosition={"start"}
@@ -131,7 +131,7 @@ function SideNavbar({ className }: { className?: string }) {
                 <span
                   data-isactive={isActive("/dashboard/my-orders")}
                   className={cn(
-                    "absolute right-10 data-[isactive='active']:text-background "
+                    "absolute right-10 data-[isactive='active']:text-background group-hover:text-background"
                   )}
                 >
                   {fakeTrackingData.length}
@@ -259,7 +259,7 @@ function SideNavbar({ className }: { className?: string }) {
                 <Button
                   size={"lg"}
                   type="button"
-                  className="w-full hover:cursor-pointer hover:bg-foreground hover:text-background"
+                  className="w-full bg-foreground text-background hover:cursor-pointer hover:bg-transparent hover:text-foreground hover:border"
                 >
                   Claim Your Packages
                 </Button>
@@ -327,7 +327,7 @@ function SideNavbar({ className }: { className?: string }) {
                       </>
                     ) : (
                       <>
-                        <span className="text-md text-foreground flex justify-center items-center gap-3">
+                        <span className="text-md  flex justify-center items-center gap-3">
                           {user?.username} {getAccountBadge()}
                         </span>
                         <span className="text-xs text-muted-foreground">
@@ -336,8 +336,8 @@ function SideNavbar({ className }: { className?: string }) {
                         </span>
                       </>
                     )}
-                  </div>
-                </ShapedButton>
+                  </div>{" "}
+                </ShapedButton>{" "}
                 <ShapedButton shape={"pill"}>
                   <EllipsisVertical />
                 </ShapedButton>

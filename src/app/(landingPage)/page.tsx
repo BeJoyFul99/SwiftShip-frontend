@@ -7,16 +7,16 @@ import { FaArrowRight } from "react-icons/fa";
 
 export default function Home() {
   return (
-    <main className="w-full h-full min-h-screen">
+    <main className="w-full h-full min-h-screen bg-background text-foreground">
       <section id="landing" className="w-full h-full p-3 pt-3 relative">
-        <div className="content h-[640px] p-5 landing-content-bg relative rounded-lg shadow-lg w-full md:h-full flex items-center justify-center md:min-h-[860px] flex-col gap-6 bg-cover bg-center bg-no-repeat ">
+        <div className="content h-[640px] p-5 landing-content-bg relative rounded-lg shadow-lg w-full md:h-full flex items-center justify-center md:min-h-[860px] flex-col gap-6 bg-cover bg-center bg-no-repeat">
           <h1
-            className="blur-bg px-5 py-2 rounded-4xl text-[1.5rem] md:text-[3.5rem] mt-36 md:mt-45 font-bold mb-4 text-[var(--snow-white)] text-center tracking-wide"
+            className="blur-bg px-5 py-2 rounded-4xl text-[1.5rem] md:text-[3.5rem] mt-36 md:mt-45 font-bold mb-4 text-foreground text-center tracking-wide"
             style={{ fontFamily: "var(--font-shippori-antique-b1)" }}
           >
             Welcome to{" "}
             <span
-              className="glass-text from-white to-orange-300 "
+              className="glass-text from-foreground to-primary"
               style={{
                 fontFamily: "var(--font-shippori-antique-b1)",
               }}
@@ -25,7 +25,7 @@ export default function Home() {
             </span>
           </h1>
           <p
-            className="text-sm md:text-lg mt-[1.25rem] md:mt-[5rem] text-center text-white mb-6 w-10/12 md:w-6/12 leading-relaxed"
+            className="text-sm md:text-lg mt-[1.25rem] md:mt-[5rem] text-center text-foreground mb-6 w-10/12 md:w-6/12 leading-relaxed"
             style={{ fontFamily: "var(--font-shippori-antique)" }}
           >
             Revolutionizing global freight logistics. <br />
@@ -34,7 +34,7 @@ export default function Home() {
           </p>
           {/* Call-to-Action */}
           <button
-            className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-700 text-white rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300"
+            className="px-8 py-3 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300"
             style={{ fontFamily: "var(--font-shippori-antique)" }}
           >
             Get Started
@@ -44,9 +44,9 @@ export default function Home() {
       {/* reasons why SwiftShip is the best choice for your shipping needs. */}
       <section id="advantages" className="w-full">
         <div className="container mx-auto px-4 py-20 flex gap-8 flex-col lg:flex-row">
-          <h2 className="section-header mx-auto md:mx-0 min-w-fit h-max text-(var(--foreground)) ">
+          <h2 className="section-header mx-auto md:mx-0 min-w-fit h-max text-foreground">
             Why Choose{" "}
-            <span className=" glass-text from-[var(--foreground)]/40 to-orange-300">
+            <span className="glass-text from-foreground/40 to-primary">
               SwiftShip
             </span>{" "}
             ?
@@ -56,7 +56,7 @@ export default function Home() {
       </section>
       <section
         id="features"
-        className="relative w-full before:left-[50%] before:-translate-x-[50%] before:absolute before:top-0 before:w-11/12 before:h-[0.86px] before:bg-[var(--foreground)]/20 before:rounded-full  "
+        className="relative w-full before:left-[50%] before:-translate-x-[50%] before:absolute before:top-0 before:w-11/12 before:h-[0.86px] before:bg-foreground/20 before:rounded-full"
       >
         <Features />
       </section>
@@ -115,67 +115,67 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer className="w-full h-fit bg-background md:p-20 p-10">
-        <div className="mt-10 flex flex-wrap gap-5 justify-between items-end border-b border-background/20 pb-10 md:pb-20">
+      <footer className="w-full h-fit bg-background md:p-20 p-10 border-t border-border">
+        <div className="mt-10 flex flex-wrap gap-5 justify-between items-end border-b border-border pb-10 md:pb-20">
           <h1 className="text-xl md:text-4xl lg:text-6xl text-foreground">
             Ready to Ship with <br />
             Confidence?
           </h1>{" "}
-          <div className="location w-full md:w-max flex gap-3 items-center px-7 py-4 rounded-full bg-foreground/20">
-            <FaLocationDot className="text-2xl text-background" />
-            <p className="text-sm md:text-xl text-foreground/50 font-light">
+          <div className="location w-full md:w-max flex gap-3 items-center px-7 py-4 rounded-full bg-muted/50 border border-border">
+            <FaLocationDot className="text-2xl text-primary" />
+            <p className="text-sm md:text-xl text-muted-foreground font-light">
               Search Location
             </p>
             <span className="text-sm md:text-xl text-foreground">Canada</span>
           </div>
         </div>
-        <div className="flex justify-between  items-center">
-          <button className="group w-full md:w-max text-xl px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-700 text-white rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 flex items-center justify-center gap-2">
+        <div className="flex justify-between items-center">
+          <button className="group w-full md:w-max text-xl px-8 py-3 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-transform duration-300 flex items-center justify-center gap-2">
             Request A Quote{" "}
-            <FaArrowRight className=" transition group-hover:translate-x-3.5" />
+            <FaArrowRight className="transition group-hover:translate-x-3.5" />
           </button>
         </div>
 
         {/* company info */}
-        <div className="text-background p-6">
+        <div className="text-foreground p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* <!-- Head Office --> */}
             <div>
-              <h3 className="text-lg font-semibold mb-2">Head office</h3>
-              <p className="text-gray-400">SchnellTransport AG</p>
-              <p className="text-gray-400">Frachtweg 15</p>
-              <p className="text-gray-400">10115 Berlin</p>
-              <p className="text-gray-400">Deutschland</p>
+              <h3 className="text-lg font-semibold mb-2 text-foreground">Head office</h3>
+              <p className="text-muted-foreground">SchnellTransport AG</p>
+              <p className="text-muted-foreground">Frachtweg 15</p>
+              <p className="text-muted-foreground">10115 Berlin</p>
+              <p className="text-muted-foreground">Deutschland</p>
             </div>
 
             {/* <!-- Postal & Visitor Address --> */}
             <div>
-              <h3 className="text-lg font-semibold mb-2">
+              <h3 className="text-lg font-semibold mb-2 text-foreground">
                 Postal & Visitor address
               </h3>
-              <p className="text-gray-400">SchnellTransport AG</p>
-              <p className="text-gray-400">Frachtweg 15</p>
-              <p className="text-gray-400">10115 Berlin</p>
-              <p className="text-gray-400">Deutschland</p>
+              <p className="text-muted-foreground">SchnellTransport AG</p>
+              <p className="text-muted-foreground">Frachtweg 15</p>
+              <p className="text-muted-foreground">10115 Berlin</p>
+              <p className="text-muted-foreground">Deutschland</p>
             </div>
 
             {/* <!-- Email & Phone --> */}
             <div>
-              <h3 className="text-lg font-semibold mb-2">Email</h3>
-              <p className="text-gray-400">{process.env["INFO_EMAIL"]}</p>
-              <h3 className="text-lg font-semibold mb-2 mt-4">Phone</h3>
-              <p className="text-gray-400">{process.env["INFO_PHONE"]}</p>
+              <h3 className="text-lg font-semibold mb-2 text-foreground">Email</h3>
+              <p className="text-muted-foreground">{process.env["INFO_EMAIL"]}</p>
+              <h3 className="text-lg font-semibold mb-2 mt-4 text-foreground">Phone</h3>
+              <p className="text-muted-foreground">{process.env["INFO_PHONE"]}</p>
             </div>
           </div>
         </div>
-        <div className="mt-10 text-center text-foreground/50">
+        <div className="mt-10 text-center text-muted-foreground">
           <p className="text-lg">
             SwiftShip is a leading global freight logistics provider, offering
             fast, reliable, and tailored shipping solutions to meet your unique
             needs.
           </p>
         </div>
-        <div className="mt-5 text-center text-foreground/50">
+        <div className="mt-5 text-center text-muted-foreground">
           <p>
             &copy; {new Date().getFullYear()} SwiftShip. All rights reserved.
           </p>

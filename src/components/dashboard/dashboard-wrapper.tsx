@@ -12,7 +12,7 @@ export default function DashboardWrapper({
     <main
       className={cn(
         isClosed && "lg:ml-3",
-        "px-3 !mt-1 blur-bg shadow-xs shadow-background lg:rounded-bl-2xl lg:rounded-br-2xl h-full"
+        " !mt-1 blur-bg shadow-xs shadow-background lg:rounded-bl-2xl lg:rounded-br-2xl h-full border-border overflow-hidden"
       )}
     >
       {children}

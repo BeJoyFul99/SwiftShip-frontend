@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
 export const shapedButtonVariants = cva(
-  "inline-flex gap-2 hover:text-muted-foreground  justify-center text-muted-foreground items-center p-2  hover:cursor-pointer hover:bg-foreground/10 transition",
+  "inline-flex gap-2  justify-center text-muted-background items-center p-2  hover:cursor-pointer hover:bg-foreground hover:text-background transition",
   {
     variants: {
       variant: {

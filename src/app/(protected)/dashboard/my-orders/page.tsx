@@ -67,9 +67,9 @@ function Page() {
   };
 
   return (
-    <div className="tracking-content flex items-center relative h-full w-full">
+    <div className="tracking-content flex items-center relative h-full w-full border">
       <MapComponent className="w-full h-full absolute z-10" />
-      <div className=" -ml-3 tracking-list bg-background h-full flex overflow-hidden flex-col z-20">
+      <div className="   tracking-list bg-background h-full flex overflow-hidden flex-col z-20">
         <TrackingFilter onFilter={onFilter} />
         <ScrollArea className="overflow-y-auto w-full">
           <div className="flex flex-col justify-start ">

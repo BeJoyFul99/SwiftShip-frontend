@@ -5,12 +5,16 @@ import Link from "next/link";
 import { BsSignIntersectionYFill } from "react-icons/bs";
 import Logo from "./Logo";
 import { useAuth } from "@/app/context/AuthContext";
-import { PanelLeftDashed } from "lucide-react";
+import { useTheme } from "@/app/context/ThemeContext";
+import { PanelLeftDashed, Sun, Moon } from "lucide-react";
 import { Spinner } from "../ui/shadcn-io/spinner";
+import ShapedButton from "../ui/shaped-button";
 
 function Navbar() {
   const [isLandingVisible, setIsLandingVisible] = useState(true);
   const { user, isLoading } = useAuth();
+  const { theme, toggleTheme } = useTheme();
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -35,39 +39,58 @@ function Navbar() {
     <nav
       className={`fixed left-[50%] -translate-x-[50%] z-50 px-5 py-4 transition-all duration-300 ${
         isLandingVisible
-          ? "top-1.5 text-[var(--snow-white)] w-[98%]"
-          : "shadow-md dark:text-white w-full backdrop-blur-sm"
+          ? "top-1.5 text-foreground w-[98%]"
+          : "shadow-md w-full backdrop-blur-sm bg-background/80 border-b border-border"
       }`}
     >
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
         <Logo />
+
         {/* Navigation Links */}
         <div className="*:hidden *:md:flex">
           <NavBarItems />
         </div>
-        {/* login */}
-        {isLoading ? (
-          <div className="nav-item flex items-center space-x-2 gap-2">
-            <Spinner></Spinner>
-          </div>
-        ) : !user ? (
-          <Link
-            href="/login"
-            className="nav-item flex items-center space-x-2 gap-2"
+
+        {/* Right side items */}
+        <div className="flex items-center gap-3">
+          {/* Theme Toggle Button */}
+          <ShapedButton
+            type="button"
+            onClick={toggleTheme}
+            shape="pill"
+            className="hover:bg-accent/20 transition-colors"
           >
-            <BsSignIntersectionYFill />
-            Login
-          </Link>
-        ) : (
-          <Link
-            href="/dashboard"
-            className="nav-item flex items-center space-x-2 gap-2"
-          >
-            <PanelLeftDashed />
-            Dashboard
-          </Link>
-        )}
+            {theme === "light" ? (
+              <Moon className="h-4 w-4 text-muted-foreground" />
+            ) : (
+              <Sun className="h-4 w-4 text-foreground" />
+            )}
+          </ShapedButton>
+
+          {/* Login/Dashboard */}
+          {isLoading ? (
+            <div className="nav-item flex items-center space-x-2 gap-2 text-foreground">
+              <Spinner></Spinner>
+            </div>
+          ) : !user ? (
+            <Link
+              href="/login"
+              className="nav-item flex items-center space-x-2 gap-2 text-foreground hover:text-primary transition-colors"
+            >
+              <BsSignIntersectionYFill />
+              Login
+            </Link>
+          ) : (
+            <Link
+              href="/dashboard"
+              className="nav-item flex items-center space-x-2 gap-2 text-foreground hover:text-primary transition-colors"
+            >
+              <PanelLeftDashed />
+              Dashboard
+            </Link>
+          )}
+        </div>
       </div>{" "}
     </nav>
   );
