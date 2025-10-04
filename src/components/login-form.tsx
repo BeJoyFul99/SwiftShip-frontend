@@ -151,8 +151,7 @@ export function LoginForm({
                     id="password"
                     type="password"
                     className={
-                      state?.message == "Invalid password" &&
-                      "border-destructive"
+                      state?.message === "Invalid password" ? "border-destructive" : undefined
                     }
                     required
                     aria-invalid={
