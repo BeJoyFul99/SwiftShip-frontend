@@ -14,7 +14,9 @@ export async function loginAction(
   let response: LoginActionResponse = {
     success: false,
     message: "",
-    input: prevState?.input || { email: email as string },
+    input: {
+      email: email,
+    },
   };
   try {
     const res = await apiFetcher("/api/auth/login", {
@@ -25,7 +27,6 @@ export async function loginAction(
       }),
     });
     const data = await res?.json();
-    console.log("Fetch response:", res); // Log the fetch response object
     if (res.ok && data) {
       const errors = [data?.message];
       if (data.code === "LOGIN_SUCCESS") {
@@ -44,12 +45,12 @@ export async function loginAction(
           maxAge: 60 * 60 * 24 * 1, // 1 day
           path: "/", // Make the cookie available to all paths
         });
+
         response = {
           success: true,
           message: data.message,
           data: data?.user,
           code: data?.code,
-          debugMsg: data.debugMsg || `Status code: ${res?.status}`,
           input: { email: email as string },
           redirectPath: "/dashboard",
         };
@@ -58,7 +59,6 @@ export async function loginAction(
           success: false,
           message: data.message || "Login failed. Please try again.",
           code: data?.code,
-          debugMsg: data.debugMsg || `Status code: ${res?.status}`,
           input: { email: email as string },
           errors: errors, // Example error messages
         };
@@ -68,8 +68,7 @@ export async function loginAction(
     response = {
       ...response,
       success: false,
-      message: "Login failed. Please try again.",
-      debugMsg: `Status code: ${error.message}`,
+      message: error.message || "Login failed. Please try again.",
     };
   }
 
@@ -169,9 +168,14 @@ export async function signupAction(
   return response;
 }
 export async function logoutAction() {
-  // Call backend to invalidate token and clear cookie
+  // Server-side logout: delete cookie and redirect
+  (await cookies()).delete("jwt_token");
+  redirect("/login");
+}
+
+export async function logoutRequest() {
+  // Call backend to invalidate token
   try {
-    // Use apiFetcher which will send the existing jwt_token cookie to the backend
     const res = await apiFetcher("/api/auth/logout", { method: "POST" });
     if (res.ok) {
       const data = await res.json();
@@ -180,6 +184,6 @@ export async function logoutAction() {
   } catch (error) {
     console.error("Error calling backend logout:", error);
   }
-  (await cookies()).delete("jwt_token"); // Also delete the cookie on the Next.js server side
-  redirect("/login");
+
+  logoutAction();
 }

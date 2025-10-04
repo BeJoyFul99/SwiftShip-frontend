@@ -13,9 +13,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 function Navbar() {
   const [isLandingVisible, setIsLandingVisible] = useState(true);
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, } = useAuth();
   const { theme, toggleTheme } = useTheme();
-
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -62,12 +62,11 @@ function Navbar() {
             type="button"
             onClick={toggleTheme}
             shape="pill"
-            className="hover:bg-accent/20 transition-colors"
           >
             {theme === "light" ? (
               <Moon className="h-6 w-6" />
             ) : (
-              <Sun className="h-6 w-6 text-foreground" />
+              <Sun className="h-6 w-6 " />
             )}
           </ShapedButton>
 
@@ -79,15 +78,14 @@ function Navbar() {
           ) : !user ? (
             <Link
               href="/login"
-              className="nav-item flex items-center space-x-2 gap-2 text-foreground hover:text-primary transition-colors"
+              className="nav-item flex items-center space-x-2 gap-2 "
             >
-              <BsSignIntersectionYFill />
               Login
             </Link>
           ) : (
             <Link
               href="/dashboard"
-              className="nav-item !bg-transparent flex items-center space-x-2 gap-2 text-foreground transition-colors"
+              className="nav-item !bg-transparent flex items-center space-x-2 gap-2 "
             >
               <Avatar>
                 <AvatarImage

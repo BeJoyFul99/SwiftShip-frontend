@@ -8,7 +8,6 @@ import StatCard from "@/components/dashboard/StatCard";
 import MapPanel from "@/components/dashboard/MapPanel";
 import ActiveShipments from "@/components/dashboard/ActiveShipments";
 import RecentTransactions from "@/components/dashboard/RecentTransactions";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Page() {
   const { user, isLoading } = useAuth();

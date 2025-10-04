@@ -9,7 +9,12 @@ interface StatCardProps {
   deltaLabel?: string;
 }
 
-export default function StatCard({ title, value, delta, deltaLabel }: StatCardProps) {
+export default function StatCard({
+  title,
+  value,
+  delta,
+  deltaLabel,
+}: StatCardProps) {
   const isPositive = delta > 0;
   const isNeutral = delta === 0;
 
@@ -22,7 +27,9 @@ export default function StatCard({ title, value, delta, deltaLabel }: StatCardPr
         <div className="flex items-center justify-between">
           <div className="text-2xl font-bold text-foreground">{value}</div>
           <Badge
-            variant={isNeutral ? "secondary" : isPositive ? "default" : "destructive"}
+            variant={
+              isNeutral ? "secondary" : isPositive ? "default" : "destructive"
+            }
             className={`flex items-center gap-1 ${
               isPositive
                 ? "bg-success/20 text-success hover:bg-success/30"

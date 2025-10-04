@@ -13,44 +13,27 @@ function NavBarItems() {
     <>
       {/* Navigation Links */}
       <ul className="nav-items lg:space-x-6">
-        <li className="flex items-center space-x-2  transition-colors">
+        <li className="flex items-center space-x-2  ">
           <FaHome />
-          <Link href="/" className="hover:text-primary transition-colors">
+          <Link href="/" className=" ">
             Home
           </Link>
         </li>
-        <li className="flex items-center space-x-2  transition-colors">
+        <li className="flex items-center space-x-2 s">
           <FaServicestack />
-          <Link
-            href="/services"
-            className="hover:text-primary transition-colors"
-          >
-            Services
-          </Link>
+          <Link href="/services">Services</Link>
         </li>
-        <li className="flex items-center space-x-2 transition-colors">
+        <li className="flex items-center space-x-2 ">
           <FaShippingFast />
-          <Link
-            href="/tracking"
-            className="hover:text-primary transition-colors"
-          >
-            Tracking
-          </Link>
+          <Link href="/tracking">Tracking</Link>
         </li>
-        <li className="flex items-center space-x-2 transition-colors">
+        <li className="flex items-center space-x-2 ">
           <FaDollarSign />
-          <Link
-            href="/pricing"
-            className="hover:text-primary transition-colors"
-          >
-            Pricing
-          </Link>
+          <Link href="/pricing">Pricing</Link>
         </li>
-        <li className="flex items-center space-x-2 transition-colors">
+        <li className="flex items-center space-x-2 ">
           <FaInfoCircle />
-          <Link href="/about" className="hover:text-primary transition-colors">
-            About Us
-          </Link>
+          <Link href="/about">About Us</Link>
         </li>
       </ul>
     </>

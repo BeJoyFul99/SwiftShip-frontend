@@ -32,9 +32,6 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const [state, action, isPending] = useActionState(loginAction, initialState);
   const { setUser } = useAuth();
-  if (state?.debugMsg) {
-    console.log("Debug Message:", state);
-  }
 
   useEffect(() => {
     if (state?.success && state?.redirectPath) {
@@ -50,7 +47,7 @@ export function LoginForm({
         }
       }, 1000);
     }
-  }, [state]);
+  }, [state, setUser]);
 
   return (
     <div
@@ -132,7 +129,14 @@ export function LoginForm({
                 </div>
                 <div className="grid gap-3">
                   <div className="flex items-center">
-                    <Label className="text-foreground" htmlFor="password">
+                    <Label
+                      className={
+                        state?.message == "Invalid password"
+                          ? "text-destructive"
+                          : "text-foreground"
+                      }
+                      htmlFor="password"
+                    >
                       Password
                     </Label>
                     <a
@@ -146,10 +150,13 @@ export function LoginForm({
                     name="password"
                     id="password"
                     type="password"
+                    className={
+                      state?.message == "Invalid password" &&
+                      "border-destructive"
+                    }
                     required
                     aria-invalid={
                       state?.success === false &&
-                      state?.errors &&
                       "Invalid password" == state?.message
                     }
                   />
@@ -186,7 +193,7 @@ export function LoginForm({
                   ) : state.success ? (
                     <CircleCheck />
                   ) : (
-                    "Continue"
+                    "Login"
                   )}
                 </Button>
               </div>

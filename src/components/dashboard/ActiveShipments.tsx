@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,12 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  fakeTrackingData,
-  TrackingDataProp,
-  getStatusColor,
-} from "@/lib/utils";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { fakeTrackingData, getStatusColor, TrackingDataProp } from "@/lib/utils";
 
 interface ActiveShipmentsProps {
   onShipmentClick?: (trackingNumber: string) => void;
@@ -33,15 +28,20 @@ interface ActiveShipmentsProps {
 export default function ActiveShipments({
   onShipmentClick,
 }: ActiveShipmentsProps) {
+  const [shipments, setShipments] = useState<TrackingDataProp[]>([]);
   const [activeTab, setActiveTab] = useState<"monitored" | "unmonitored">(
-    "monitored"
+    "unmonitored"
   );
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  useEffect(() => {
+    setShipments(fakeTrackingData);
+  }, []);
+
   // Filter data based on active tab and search term
-  const filteredData = fakeTrackingData.filter((item) => {
+  const filteredData = shipments.filter((item) => {
     const matchesTab =
       activeTab === "monitored"
         ? item.trackingNumber.length % 2 === 0

@@ -1,6 +1,5 @@
 export type LoginActionResponse = {
   success: boolean;
-  debugMsg?: string;
   code?: string;
   message: string;
   input?: Record<string, any>;

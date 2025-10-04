@@ -29,31 +29,36 @@ export async function apiFetcher(
       ...config.headers,
       Cookie: cookieHeader,
     };
-    
+
   const url = `${process.env.BACKEND_URL}${endpoint}`;
   // --- START DEBUGGING LOGS ---
-  console.log("--- Outgoing Request Debug ---");
+  /*  console.log("--- Outgoing Request Debug ---");
   console.log("Request URL:", url);
   console.log("Request Method:", config.method || "GET"); // Default to GET if not specified
-  console.log("Request Headers:", config.headers);
+  console.log("Request Headers:", config.headers); */
 
   // If you want to see the body (for POST/PUT requests)
-  if (config.body) {
-    console.log("Request Body:", config.body);
+  /*  if (config.body) {
+    // console.log("Request Body:", config.body);
     // If body is a string (like JSON.stringify), you can log it directly.
     // If it's a FormData object, you might need to iterate it.
   } else {
     console.log("No Request Body.");
-  }
-  console.log("Request Credentials:", config.credentials);
-  console.log("--- End Outgoing Request Debug ---");
-  // --- END DEBUGGING LOGS ---
+  } */
+  /* console.log("Request Credentials:", config.credentials);
+  console.log("--- End Outgoing Request Debug ---") */ // --- END DEBUGGING LOGS ---
   const response = await fetch(url, config);
 
   if (!response.ok) {
     // You could parse the error response and throw a more specific error
-    const errorData = await response.json();
-    throw new Error(errorData.message || "Something went wrong");
+    console.log(response);
+    let errorData: any = null;
+    try {
+      errorData = await response.json();
+    } catch (error) {}
+
+    throw new Error(errorData?.message || "Something went wrong");
   }
+
   return response;
 }

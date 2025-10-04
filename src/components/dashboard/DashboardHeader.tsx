@@ -1,5 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 interface DashboardHeaderProps {
   userName?: string;
   userTitle?: string;
@@ -13,6 +11,13 @@ export default function DashboardHeader({
   userCompany = "Niolax Group",
   userLocation = "CA",
 }: DashboardHeaderProps) {
+  const date = new Date().toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year:"numeric"
+  });
+
   return (
     <div className="flex items-center gap-4 mb-6 md:flex-row flex-col">
       <div className="flex-1">
@@ -28,7 +33,7 @@ export default function DashboardHeader({
         </div>
       </div>
       <div className="text-right text-sm text-muted-foreground">
-        <div className="text-foreground">23, October, Friday</div>
+        <div className="text-foreground">{date}</div>
         <div className="flex items-center gap-4 mt-1">
           <span className="text-foreground">29°</span>
           <span className="text-muted-foreground">H:30° L:13°</span>
